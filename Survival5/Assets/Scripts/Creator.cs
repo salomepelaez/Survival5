@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 // Se importaron los Namespace para poder utilizar sus componentes.
 using NPC.Enemy;
 using NPC.Ally;
@@ -18,10 +19,10 @@ public class Creator : MonoBehaviour
     public readonly int minGen; // Se declaró un readonly para el mínimo posible de generación de objetos. 
 
     // Las siguientes variables del tipo texto son las que abrigan los contadores del Canvas.
-    /*public Text ZombiesNum;
-    public Text VillagersNum;
+    public TextMeshProUGUI monsterNum;
+    public TextMeshProUGUI villagersNum;
     public string message;
-    public static string goMessage;*/
+    public static string goMessage;
 
     public static float sChild; // En esta línea se declara la velocidad estática del héroe, que luego se utiliza en la clase Hero.
 
@@ -79,22 +80,22 @@ public class Creator : MonoBehaviour
        // goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.
     }
 
-    /*private void Update()
+    private void Update()
     {
         // El siguiente bloque de código genera los contadores de NPC´s en la escena.
         int v = 0;
         int z = 0;
 
-        foreach (Zombie zombie in Transform.FindObjectsOfType<Zombie>())
+        foreach (Monster monter in Transform.FindObjectsOfType<Monster>())
         {
             z = z + 1;
-            ZombiesNum.text = "Zombies: " + z;
+            monsterNum.text = "Monstruos: " + z;
         }
 
         foreach (Villagers villagers in Transform.FindObjectsOfType<Villagers>())
         {
             v = v + 1;
-            VillagersNum.text = "Villagers: " + v;
+            villagersNum.text = "Villagers: " + v;
         }
     }
 
@@ -104,5 +105,5 @@ public class Creator : MonoBehaviour
         message = "Game Over";
 
         return message;
-    }*/
+    }
 }

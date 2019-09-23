@@ -61,10 +61,14 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             }
 
             // A continuación se asigna el mensaje de los aldeanos.
-            public string PrintNames()
+           /* public string PrintNames()
             {
-                return "Hola soy " + villagersData.peopleNames + ". Y tengo " + villagersData.age + " años.";
-            }
+                switch (Random.Range(0, 5))
+                {
+                    case 0:
+                        
+                }                
+            }*/
 
             // Cuando el ciudadano es alcanzado por un Zombie, estos pasan a realizar el cast.
             public void OnCollisionEnter(Collision collision)
