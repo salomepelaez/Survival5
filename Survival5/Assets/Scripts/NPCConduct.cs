@@ -21,8 +21,8 @@ public class NPCConduct : MonoBehaviour
 
             if (move == "Moving")
             {
-                //float rotat = transform.eulerAngles.y;
-                transform.rotation = Quaternion.Euler(0.0f, Random.Range(10f, -10f), 0.0f);
+                float rotat = transform.eulerAngles.y;
+                transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
                 transform.position += transform.forward * npcSpeed * Time.deltaTime;
             }
 
