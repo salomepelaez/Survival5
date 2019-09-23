@@ -30,7 +30,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 // Este bloque de código se realizó en el Start, porque de esta manera se asignan las variables solo una vez por objeto creado.
 
                 villagersData.age = Random.Range(15, 101);
-                villagersData.peopleNames = (Names)Random.Range(0, 20);
 
                 InvokeRepeating("NPCAssignment", 3.0f, 3.0f); // Se llama la repetición para el comportamiento.
 
@@ -61,13 +60,14 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             }
 
             // A continuación se asigna el mensaje de los aldeanos.
-           /* public string PrintNames()
+            /*public string PrintNames()
             {
                 switch (Random.Range(0, 5))
                 {
                     case 0:
-                        
-                }                
+                        return "";  
+                }
+                
             }*/
 
             // Cuando el ciudadano es alcanzado por un Zombie, estos pasan a realizar el cast.
@@ -81,34 +81,10 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             }
         }
 
-        public enum Names // Este Enum abriga los nombres.
-        {
-            Rose,
-            Ophelie,
-            Celeste,
-            Mérida,
-            Catrina,
-            Dean,
-            Will,
-            Lucas,
-            Dustin,
-            Mike,
-            Sophie,
-            Isabella,
-            Amelie,
-            Charlotte,
-            Milo,
-            Dante,
-            Ariel,
-            Suhail,
-            Jake,
-            David
-        }
 
         public struct VillagersData // Este Struct almacena las variables.
         {
             public int age;
-            public Names peopleNames;
 
             // En este pequeño bloque se realiza el cast de estructuras.
             public static explicit operator MonsterData(VillagersData vD)
