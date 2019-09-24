@@ -50,7 +50,6 @@ public class Creator : MonoBehaviour
 
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
-            int change = Random.Range(0, 2); // Se creó un Random con dos únicas opciones.
 
             // El siguiente bloque de código se encarga de generar el héroe, está separado, pues a diferencia de los miembros de la aldea, solo debe ser creado una vez.
             if (j == 0)
@@ -62,13 +61,16 @@ public class Creator : MonoBehaviour
 
             else
             {
-                switch (change)
+                switch (Random.Range(0, 3))
                 {
                     case 0:
-                        thePeople.AddComponent<Monster>(); // Se agregan los componentes de su respectiva clase.
+                        thePeople.AddComponent<Villagers>(); // Se agregan los componentes de su respectiva clase. 
                         break;
                     case 1:
-                        thePeople.AddComponent<Villagers>(); // Se agregan los componentes de su respectiva clase. 
+                        thePeople.AddComponent<Puppet>(); // Se agregan los componentes de su respectiva clase. 
+                        break;
+                    case 2:
+                        thePeople.AddComponent<Trees>(); // Se agregan los componentes de su respectiva clase.
                         break;
                 }
             }
@@ -77,7 +79,7 @@ public class Creator : MonoBehaviour
 
     private void Start()
     {
-       // goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.
+       goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.
     }
 
     private void Update()

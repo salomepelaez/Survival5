@@ -8,19 +8,24 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 {
     namespace Enemy // Este es el namespace anidado
     {
-        public class Monster : NPCConduct
+        public abstract class Monster : NPCConduct
         {
             public MonsterData monsterData;
-            Vector3 direction; // Se creó un Vector3 para la dirección.
-            MonsterColor mC;
+            public Vector3 direction; // Se creó un Vector3 para la dirección.
+            public MonsterColor mC;
 
+            public abstract void MonsterMove();            
+        }
+
+        public class Puppet: Monster
+        {
             public void Start()
             {
                 target = FindObjectOfType<Child>().GetComponent<Transform>(); //Se asignó al héroe como target.
 
                 InvokeRepeating("NPCAssignment", 3.0f, 3.0f); // Se llama la repetición para el comportamiento.
-                transform.tag = "Monster"; // Se cambió el nombre de la etiqueta.
-                transform.name = "Monster"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
+                transform.tag = "Puppet"; // Se cambió el nombre de la etiqueta.
+                transform.name = "Puppet"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
 
                 mC = MonsterColor.Rojo;
                 if (mC == MonsterColor.Rojo)
@@ -32,7 +37,64 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             private void Update()
             {
                 NPCMove();
+                MonsterMove();
+            }
+            public override void NPCMove()
+            {
+                if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
+                {
+                    attackRange = Vector3.Distance(target.position, transform.position); // El rango de ataque se basa en la distancia con el Target.
+                    float rotationSpeed = 25f; // Se creó una variable mucho mayor que la velocidad general del zombie, para que su rotación pueda ser visible.
 
+                    if (move == "Moving")
+                    {
+                        float rotat = transform.eulerAngles.y;
+                        transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
+                        transform.position += transform.forward * npcSpeed * Time.deltaTime;
+                    }
+
+                    else if (move == "Idle")
+                    {
+                        // ...
+                    }
+
+                    else if (move == "Rotating")
+                    {
+                        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                    }
+
+                    if (attackRange < 5.0f)
+                    {
+                        direction = Vector3.Normalize(target.transform.position - transform.position);
+                        transform.position += direction * npcSpeed * Time.deltaTime;
+                    }
+                }
+            }
+            
+            // Esta es la función que asigna los estados.
+            public override void NPCAssignment()
+            {
+                switch (Random.Range(0, 6))
+                {
+                    case 0:
+                        m = Move.Moving;
+                        move = "Moving";
+                        break;
+
+                    case 1:
+                        m = Move.Idle;
+                        move = "Idle";
+                        break;
+
+                    case 2:
+                        m = Move.Rotating;
+                        move = "Rotating";
+                        break;
+                }
+            }
+
+            public override void MonsterMove()
+            {
                 // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
                 Villagers closest = null;
                 float closestDistance = 5.0f;
@@ -43,7 +105,85 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
                     if (distance < closestDistance)
                     {
-                        m = Move.Pursuing;
+                        m = Move.Reacting;
+                        closest = v;
+                        closestDistance = distance;
+                        direction = Vector3.Normalize(v.transform.position - transform.position);
+                        transform.position += direction * npcSpeed * Time.deltaTime;
+                    }
+                }
+            }
+        }
+
+        public class Trees: Monster
+        {
+            public void Start()
+            {
+                target = FindObjectOfType<Child>().GetComponent<Transform>(); //Se asignó al héroe como target.
+
+                InvokeRepeating("NPCAssignment", 3.0f, 3.0f); // Se llama la repetición para el comportamiento.
+                transform.tag = "Tree"; // Se cambió el nombre de la etiqueta.
+                transform.name = "Tree"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
+
+                mC = MonsterColor.Verde;
+                if (mC == MonsterColor.Verde)
+                {
+                    GetComponent<Renderer>().material.color = Color.green;
+                }
+            }
+
+            private void Update()
+            {
+                NPCMove();
+                MonsterMove();
+            }
+
+            public override void NPCMove()
+            {
+                if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
+                {
+                    attackRange = Vector3.Distance(target.position, transform.position); // El rango de ataque se basa en la distancia con el Target.
+
+                }
+
+                else if (move == "Idle")
+                {
+                    // ...
+                }
+                    
+                if (attackRange < 5.0f)
+                {
+                    direction = Vector3.Normalize(target.transform.position - transform.position);
+                    transform.position += direction * npcSpeed * Time.deltaTime;
+                }
+                
+            }
+            
+            // Esta es la función que asigna los estados.
+            public override void NPCAssignment()
+            {
+                switch (Random.Range(0, 6))
+                {
+                    case 0:
+                        m = Move.Idle;
+                        move = "Idle";
+                        break;;
+                }
+            }
+
+            public override void MonsterMove()
+            {
+                // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
+                Villagers closest = null;
+                float closestDistance = 5.0f;
+
+                foreach (var v in FindObjectsOfType<Villagers>())
+                {
+                    float distance = Vector3.Distance(v.transform.position, transform.position);
+
+                    if (distance < closestDistance)
+                    {
+                        m = Move.Reacting;
                         closest = v;
                         closestDistance = distance;
                         direction = Vector3.Normalize(v.transform.position - transform.position);
@@ -61,7 +201,8 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
         public enum MonsterColor // Enum de los colores
         {
-            Rojo
+            Rojo,
+            Verde
         }
     }
 }

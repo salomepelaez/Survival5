@@ -15,7 +15,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public VillagersData villagersData; // Se creó una variable del Struct.
 
             Vector3 direction;
-            float attackRange;
 
             void Start()
             {
@@ -50,7 +49,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
                     if (distance < closestDistance)
                     {
-                        m = Move.Running;
+                        m = Move.Reacting;
                         closest = v;
                         closestDistance = distance;
                         direction = Vector3.Normalize(v.transform.position - transform.position);
@@ -59,18 +58,60 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
-            // A continuación se asigna el mensaje de los aldeanos.
-            /*public string PrintNames()
+            public override void NPCMove()
             {
-                switch (Random.Range(0, 5))
+                if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
+                {
+                    attackRange = Vector3.Distance(target.position, transform.position); // El rango de ataque se basa en la distancia con el Target.
+                    float rotationSpeed = 25f; // Se creó una variable mucho mayor que la velocidad general del zombie, para que su rotación pueda ser visible.
+
+                    if (move == "Moving")
+                    {
+                        float rotat = transform.eulerAngles.y;
+                        transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
+                        transform.position += transform.forward * npcSpeed * Time.deltaTime;
+                    }
+
+                    else if (move == "Idle")
+                    {
+                        // ...
+                    }
+
+                    else if (move == "Rotating")
+                    {
+                        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+                    }
+
+                    if (attackRange < 5.0f)
+                    {
+                        direction = Vector3.Normalize(target.transform.position - transform.position);
+                        transform.position += direction * npcSpeed * Time.deltaTime;
+                    }
+                }
+            }
+
+            // Esta es la función que asigna los estados.
+            public override void NPCAssignment()
+            {
+                switch (Random.Range(0, 6))
                 {
                     case 0:
-                        return "";  
-                }
-                
-            }*/
+                        m = Move.Moving;
+                        move = "Moving";
+                        break;
 
-            // Cuando el ciudadano es alcanzado por un Zombie, estos pasan a realizar el cast.
+                    case 1:
+                        m = Move.Idle;
+                        move = "Idle";
+                        break;
+
+                    case 2:
+                        m = Move.Rotating;
+                        move = "Rotating";
+                        break;
+                }
+            }
+
             public void OnCollisionEnter(Collision collision)
             {
                 if (collision.transform.tag == "Monster")
