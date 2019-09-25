@@ -67,8 +67,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
                     if (move == "Moving")
                     {
-                        float rotat = transform.eulerAngles.y;
-                        transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
                         transform.position += transform.forward * npcSpeed * Time.deltaTime;
                     }
 
@@ -131,7 +129,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                         myMessage = "¿Has luchado contra árboles? Pero qué personita más valiente";
                         break;
                     case 4:
-                        myMessage = "Farlopa";
+                        myMessage = "Buenardo";
                         break;
                     case 5:
                         myMessage = "Australiano mamífero, semicuático agente";
@@ -144,9 +142,15 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
             public void OnCollisionEnter(Collision collision)
             {
-                if (collision.transform.tag == "Monster")
+                if (collision.transform.tag == "Tree")
                 {
-                    gameObject.AddComponent<Monster>().monsterData = (MonsterData)GetComponent<Villagers>().villagersData;
+                    gameObject.AddComponent<Trees>().monsterData = (MonsterData)GetComponent<Villagers>().villagersData;
+                    Destroy(gameObject.GetComponent<Villagers>());
+                }
+
+                if (collision.transform.tag == "Puppet")
+                {
+                    gameObject.AddComponent<Puppet>().monsterData = (MonsterData)GetComponent<Villagers>().villagersData;
                     Destroy(gameObject.GetComponent<Villagers>());
                 }
             }

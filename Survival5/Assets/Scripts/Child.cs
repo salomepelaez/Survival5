@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using NPC.Ally;
 using NPC.Enemy;
+using TMPro;
 
 public class Child : MonoBehaviour
 {
@@ -12,12 +13,14 @@ public class Child : MonoBehaviour
     public readonly float sHero = Creator.sChild; // La variable se asignó como readonly, obteniéndola desde la clase Manager.
 
     // A continuación se crean las variables de Texto para el Canvas.
-    public static Text Message;
-    public Text GameOver;
-    public Text Health;
+    public static Text message;
+    public Text gameOver;
+    public TextMeshProUGUI health;
+
     void Start()
     {
         transform.name = "Child"; // Se transformó su nombre para identificarlo más rápidamente.
+        transform.tag = "Child";
 
         // Al GameObject se le asignaron los componentes de cámara, rotación y movimiento.
         GameObject pov = new GameObject();
@@ -27,9 +30,9 @@ public class Child : MonoBehaviour
         gameObject.GetComponent<ChildMove>().speed = sHero; // Se utilizaron los miembros del Enum "Speed", y se reasigna la velocidad.
 
         // A continuación se asignan lso mensajes directamente al Canvas. 
-        Message = GameObject.Find("VMessage").GetComponent<Text>();
-        GameOver = GameObject.Find("GameOver").GetComponent<Text>();
-        Health = GameObject.Find("Health").GetComponent<Text>();
+        message = GameObject.Find("VMessage").GetComponent<Text>();
+        gameOver = GameObject.Find("GameOver").GetComponent<Text>();
+        health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
         pov.transform.SetParent(this.transform);
         pov.transform.localPosition = Vector3.zero;
     }
@@ -40,22 +43,22 @@ public class Child : MonoBehaviour
         float rotat = transform.eulerAngles.y;
         transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
 
-        Health.text = "Salud: " + lifeCounter;  
+        health.text = "Salud: " + lifeCounter;  
         if(Creator.inGame == false)
         {
-            Health.text = "";
+            health.text = "";
         }
     }
 
     IEnumerator PrintMessages(Villagers villager) // Esta Corutina es la que asigna los mensajes de los ciudadanos.
-     {
-         Message.text = villager.Message();
+    {
+         message.text = villager.Message();
          yield return new WaitForSeconds(3);
-         Message.text = "";
+         message.text = "";
 
         if (Creator.inGame == false)
         {
-            Message.text = "";
+            message.text = "";
         }
     }
 
@@ -64,20 +67,30 @@ public class Child : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
        if (collision.transform.tag == "Villager")
-        {
+       {
             StartCoroutine("PrintMessages", collision.transform.GetComponent<Villagers>());
-
-        }
+       }
 
         if (collision.transform.tag == "Puppet")
         {   
-            lifeCounter = lifeCounter - 6;
+            lifeCounter = lifeCounter - 2;
 
             if(lifeCounter <= 0)
             {
                 Creator.inGame = false;
-                GameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
+                gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
             }            
+        }
+
+        if (collision.transform.tag == "Tree")
+        {
+            lifeCounter = lifeCounter - 4;
+
+            if (lifeCounter <= 0)
+            {
+                Creator.inGame = false;
+                gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
+            }
         }
     }
     

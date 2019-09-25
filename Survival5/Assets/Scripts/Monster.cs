@@ -48,8 +48,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
                     if (move == "Moving")
                     {
-                        float rotat = transform.eulerAngles.y;
-                        transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
                         transform.position += transform.forward * npcSpeed * Time.deltaTime;
                     }
 
@@ -65,6 +63,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
                     if (attackRange < 5.0f)
                     {
+                        m = Move.Reacting;
                         direction = Vector3.Normalize(target.transform.position - transform.position);
                         transform.position += direction * npcSpeed * Time.deltaTime;
                     }
@@ -153,6 +152,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                     
                 if (attackRange < 5.0f)
                 {
+                    m = Move.Reacting;
                     direction = Vector3.Normalize(target.transform.position - transform.position);
                     transform.position += direction * npcSpeed * Time.deltaTime;
                 }

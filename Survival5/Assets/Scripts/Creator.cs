@@ -19,7 +19,8 @@ public class Creator : MonoBehaviour
     public readonly int minGen; // Se declaró un readonly para el mínimo posible de generación de objetos. 
 
     // Las siguientes variables del tipo texto son las que abrigan los contadores del Canvas.
-    public TextMeshProUGUI monsterNum;
+    public TextMeshProUGUI treesNum;
+    public TextMeshProUGUI puppetsNum;
     public TextMeshProUGUI villagersNum;
     public string message;
     public static string goMessage;
@@ -86,16 +87,28 @@ public class Creator : MonoBehaviour
     {
         // El siguiente bloque de código genera los contadores de NPC´s en la escena.
         int v = 0;
-        int z = 0;
+        int a = 0;
+        int p = 0;
 
-        foreach (Monster monter in Transform.FindObjectsOfType<Monster>())
+        foreach (Trees tree in Transform.FindObjectsOfType<Trees>())
         {
-            z = z + 1;
-            monsterNum.text = "Monstruos: " + z;
+            a = a + 1;
+            treesNum.text = "Árboles: " + a;
 
             if (Creator.inGame == false)
             {
-                monsterNum.text = "";
+                treesNum.text = "";
+            }
+        }
+
+        foreach (Puppet puppet in Transform.FindObjectsOfType<Puppet>())
+        {
+            p = p + 1;
+            puppetsNum.text = "Marionetas: " + p;
+
+            if (Creator.inGame == false)
+            {
+                puppetsNum.text = "";
             }
         }
 
