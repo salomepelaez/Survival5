@@ -132,7 +132,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                         myMessage = "Buenardo";
                         break;
                     case 5:
-                        myMessage = "Busca una manera de protegerte";
+                        myMessage = "Australiano mamífero, semicuático agente";
                         break;
 
                 }

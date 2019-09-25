@@ -62,18 +62,6 @@ public class Child : MonoBehaviour
         }
     }
 
-    IEnumerator WeaponM(Weapon weapon) // Esta Corutina es la que asigna los mensajes de los ciudadanos.
-    {
-        message.text = weapon.weaponMessage();
-        yield return new WaitForSeconds(3);
-        message.text = "";
-
-        if (Creator.inGame == false)
-        {
-            message.text = "";
-        }
-    }
-
     // La siguiente función es la encargada de imprimir los mensajes cuando hay colisión, utilizando las etiquetas.
     int lifeCounter = 12;
     public void OnCollisionEnter(Collision collision)
@@ -102,16 +90,6 @@ public class Child : MonoBehaviour
             {
                 Creator.inGame = false;
                 gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
-            }
-        }
-
-        if (collision.transform.tag == "Weapon")
-        {
-            StartCoroutine("WeaponM", collision.transform.GetComponent<Weapon>());
-
-            if (Input.GetKey(KeyCode.E))
-            {
-                Destroy(gameObject.GetComponent<Weapon>());
             }
         }
     }
