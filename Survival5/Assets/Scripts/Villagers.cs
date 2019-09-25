@@ -112,6 +112,36 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
+            public string Message()
+            {
+                string myMessage = "";
+
+                switch(Random.Range(0,6))
+                {
+                    case 0:
+                        myMessage = "No debes ir al bosque sin adulto";
+                        break;
+                    case 1:
+                        myMessage = "Cuenta la leyenda que los árboles tenían vida, y luchaban por los humanos, pero se rindieron al ver que su peor enemigo eran ellos mismos.";
+                        break;
+                    case 2:
+                        myMessage = "Las marionetas son más que simples juguetes, debes tener cuidado";
+                        break;
+                    case 3:
+                        myMessage = "¿Has luchado contra árboles? Pero qué personita más valiente";
+                        break;
+                    case 4:
+                        myMessage = "Farlopa";
+                        break;
+                    case 5:
+                        myMessage = "Australiano mamífero, semicuático agente";
+                        break;
+
+                }
+
+                return myMessage;
+            }
+
             public void OnCollisionEnter(Collision collision)
             {
                 if (collision.transform.tag == "Monster")

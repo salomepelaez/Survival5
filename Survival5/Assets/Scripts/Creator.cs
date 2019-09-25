@@ -92,12 +92,22 @@ public class Creator : MonoBehaviour
         {
             z = z + 1;
             monsterNum.text = "Monstruos: " + z;
+
+            if (Creator.inGame == false)
+            {
+                monsterNum.text = "";
+            }
         }
 
         foreach (Villagers villagers in Transform.FindObjectsOfType<Villagers>())
         {
             v = v + 1;
             villagersNum.text = "Villagers: " + v;
+
+            if (Creator.inGame == false)
+            {
+                villagersNum.text = "";
+            }
         }
     }
 
