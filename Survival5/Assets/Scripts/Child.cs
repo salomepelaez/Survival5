@@ -16,8 +16,9 @@ public class Child : MonoBehaviour
     public static Text message;
     public Text gameOver;
     public TextMeshProUGUI health;
+    public Text weaponMessage;
 
-    void Start()
+    void Awake()
     {
         transform.name = "Child"; // Se transformó su nombre para identificarlo más rápidamente.
         transform.tag = "Child";
@@ -62,9 +63,9 @@ public class Child : MonoBehaviour
         }
     }
 
-    IEnumerator WeaponM(Weapon weapon) // Esta Corutina es la que asigna los mensajes de los ciudadanos.
+    IEnumerator WeaponM(Weapon weapon)
     {
-        message.text = weapon.weaponMessage();
+        weaponMessage.text = weapon.WeaponMessage();
         yield return new WaitForSeconds(3);
         message.text = "";
 
@@ -75,7 +76,7 @@ public class Child : MonoBehaviour
     }
 
     // La siguiente función es la encargada de imprimir los mensajes cuando hay colisión, utilizando las etiquetas.
-    int lifeCounter = 12;
+    int lifeCounter = 100;
     public void OnCollisionEnter(Collision collision)
     {
        if (collision.transform.tag == "Villager")
@@ -85,7 +86,7 @@ public class Child : MonoBehaviour
 
         if (collision.transform.tag == "Puppet")
         {   
-            lifeCounter = lifeCounter - 2;
+            lifeCounter = lifeCounter - 20;
 
             if(lifeCounter <= 0)
             {
@@ -96,7 +97,7 @@ public class Child : MonoBehaviour
 
         if (collision.transform.tag == "Tree")
         {
-            lifeCounter = lifeCounter - 4;
+            lifeCounter = lifeCounter - 25;
 
             if (lifeCounter <= 0)
             {
@@ -108,13 +109,14 @@ public class Child : MonoBehaviour
         if (collision.transform.tag == "Weapon")
         {
             StartCoroutine("WeaponM", collision.transform.GetComponent<Weapon>());
-            if (Input.GetKey(KeyCode.E))
+           /* if (Input.GetKey(KeyCode.E))
             {
                 Destroy(gameObject.GetComponent<Weapon>());
-            }
+            }*/
+            Debug.Log("collision");
         }
-    }
-    
+        
+    }    
     static float speed; // La velocidad se declaró como estática.
 }
 

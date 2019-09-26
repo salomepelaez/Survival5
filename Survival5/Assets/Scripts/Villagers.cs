@@ -28,11 +28,8 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 // A continuación se añadieron las variables del tipo Random para la edad y nombre.
                 // Este bloque de código se realizó en el Start, porque de esta manera se asignan las variables solo una vez por objeto creado.
 
-                villagersData.age = Random.Range(15, 101);
-
                 InvokeRepeating("NPCAssignment", 3.0f, 3.0f); // Se llama la repetición para el comportamiento.
-
-                npcSpeed = (15f * npcSpeed) / villagersData.age; // Esta regla de tres inversa se encarga de asignar una velocidad, dependiendo de la edad.                              
+                           
             }
 
             private void Update()
@@ -78,12 +75,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                     else if (move == "Rotating")
                     {
                         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-                    }
-
-                    if (attackRange < 5.0f)
-                    {
-                        direction = Vector3.Normalize(target.transform.position - transform.position);
-                        transform.position += direction * npcSpeed * Time.deltaTime;
                     }
                 }
             }

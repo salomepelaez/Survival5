@@ -12,6 +12,7 @@ public class Creator : MonoBehaviour
     public static bool inGame = true; // Se creó un booleano que controla el estado activo del juego.
 
     GameObject thePeople; // Se creó un GameoObject con este nombre, pues será utilizado para Zombies, Ciudadanos y Héroe.
+    public GameObject stick;
 
     System.Random random = new System.Random();
 
@@ -44,10 +45,10 @@ public class Creator : MonoBehaviour
             thePeople = GameObject.CreatePrimitive(PrimitiveType.Cube); // El GameObject "thePeople" genera los cubos para zombies, aldeanos y héroes.
 
             // El Vector3 de posición es el que servirá para generar los cubos en una posición aleatoria.
-            Vector3 posicion = new Vector3();
-            posicion.x = Random.Range(-50, 50);
-            posicion.z = Random.Range(-50, 50);
-            thePeople.transform.position = posicion; // A los cubos se les asigna la posición aleatoria antes mencionada.
+            Vector3 pos = new Vector3();
+            pos.x = Random.Range(-50, 50);
+            pos.z = Random.Range(-50, 50);
+            thePeople.transform.position = pos; // A los cubos se les asigna la posición aleatoria antes mencionada.
 
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
@@ -75,7 +76,7 @@ public class Creator : MonoBehaviour
                         break;
                 }
             }
-        }
+        }        
     }
 
     private void Start()

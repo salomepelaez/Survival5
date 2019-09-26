@@ -9,6 +9,7 @@ TagManager:
   - Puppet
   - Tree
   - Child
+  - Weapon
   layers:
   - Default
   - TransparentFX

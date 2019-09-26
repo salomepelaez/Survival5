@@ -14,7 +14,28 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public Vector3 direction; // Se creó un Vector3 para la dirección.
             public MonsterColor mC;
 
-            public abstract void MonsterMove();            
+            public void Update()
+            {
+                // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
+                Villagers closest = null;
+                float closestDistance = 5.0f;
+
+                foreach (var v in FindObjectsOfType<Villagers>())
+                {
+                    float distance = Vector3.Distance(v.transform.position, transform.position);
+
+                    if (distance < closestDistance)
+                    {
+                        m = Move.Reacting;
+                        closest = v;
+                        closestDistance = distance;
+                        direction = Vector3.Normalize(v.transform.position - transform.position);
+                        transform.position += direction * npcSpeed * Time.deltaTime;
+                    }
+                }
+
+                NPCMove();
+            }
         }
 
         public class Puppet: Monster
@@ -34,11 +55,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
-            private void Update()
-            {
-                NPCMove();
-                MonsterMove();
-            }
+            
             public override void NPCMove()
             {
                 if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
@@ -91,27 +108,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                         break;
                 }
             }
-
-            public override void MonsterMove()
-            {
-                // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
-                Villagers closest = null;
-                float closestDistance = 5.0f;
-
-                foreach (var v in FindObjectsOfType<Villagers>())
-                {
-                    float distance = Vector3.Distance(v.transform.position, transform.position);
-
-                    if (distance < closestDistance)
-                    {
-                        m = Move.Reacting;
-                        closest = v;
-                        closestDistance = distance;
-                        direction = Vector3.Normalize(v.transform.position - transform.position);
-                        transform.position += direction * npcSpeed * Time.deltaTime;
-                    }
-                }
-            }
+            
         }
 
         public class Trees: Monster
@@ -129,12 +126,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 {
                     GetComponent<Renderer>().material.color = Color.green;
                 }
-            }
-
-            private void Update()
-            {
-                NPCMove();
-                MonsterMove();
             }
 
             public override void NPCMove()
@@ -167,30 +158,11 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                     case 0:
                         m = Move.Idle;
                         move = "Idle";
-                        break;;
+                        break;
                 }
             }
 
-            public override void MonsterMove()
-            {
-                // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
-                Villagers closest = null;
-                float closestDistance = 5.0f;
-
-                foreach (var v in FindObjectsOfType<Villagers>())
-                {
-                    float distance = Vector3.Distance(v.transform.position, transform.position);
-
-                    if (distance < closestDistance)
-                    {
-                        m = Move.Reacting;
-                        closest = v;
-                        closestDistance = distance;
-                        direction = Vector3.Normalize(v.transform.position - transform.position);
-                        transform.position += direction * npcSpeed * Time.deltaTime;
-                    }
-                }
-            }
+            
         }
 
         public struct MonsterData // Este Struct almacena todos los datos
