@@ -7,7 +7,6 @@ public class Weapon : MonoBehaviour
 {
     public GameObject stick;
     Vector3 direction;
-    public Text message;
 
     public void Awake()
     {
@@ -20,13 +19,14 @@ public class Weapon : MonoBehaviour
         GameObject s = Instantiate(stick, posicion, Quaternion.identity);
         s.GetComponent<Renderer>().material.color = Color.cyan;
         s.AddComponent<Rigidbody>();
-
     }
-    
 
-    public string WeaponMessage()
+    private void Start()
     {
-        return "Presiona E para recoger";
+        if(Child.armed == true)
+        {
+            Destroy(this);
+        }
     }
 }
 

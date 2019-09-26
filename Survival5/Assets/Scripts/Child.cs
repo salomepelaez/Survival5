@@ -14,9 +14,10 @@ public class Child : MonoBehaviour
 
     // A continuación se crean las variables de Texto para el Canvas.
     public static Text message;
-    public Text gameOver;
+    public TextMeshProUGUI gameOver;
     public TextMeshProUGUI health;
     public Text weaponMessage;
+    public static bool armed = false;
 
     void Awake()
     {
@@ -32,7 +33,8 @@ public class Child : MonoBehaviour
 
         // A continuación se asignan lso mensajes directamente al Canvas. 
         message = GameObject.Find("VMessage").GetComponent<Text>();
-        gameOver = GameObject.Find("GameOver").GetComponent<Text>();
+        gameOver = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
+        weaponMessage = GameObject.Find("Weapon").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
         pov.transform.SetParent(this.transform);
         pov.transform.localPosition = Vector3.zero;
@@ -56,18 +58,6 @@ public class Child : MonoBehaviour
          message.text = villager.Message();
          yield return new WaitForSeconds(3);
          message.text = "";
-
-        if (Creator.inGame == false)
-        {
-            message.text = "";
-        }
-    }
-
-    IEnumerator WeaponM(Weapon weapon)
-    {
-        weaponMessage.text = weapon.WeaponMessage();
-        yield return new WaitForSeconds(3);
-        message.text = "";
 
         if (Creator.inGame == false)
         {
@@ -108,12 +98,12 @@ public class Child : MonoBehaviour
 
         if (collision.transform.tag == "Weapon")
         {
-            StartCoroutine("WeaponM", collision.transform.GetComponent<Weapon>());
-           /* if (Input.GetKey(KeyCode.E))
-            {
-                Destroy(gameObject.GetComponent<Weapon>());
-            }*/
-            Debug.Log("collision");
+            weaponMessage.text = "Presiona E para recoger";
+             if (Input.GetKey(KeyCode.E))
+             {
+                armed = true;
+                Debug.Log("armed");
+             }
         }
         
     }    
