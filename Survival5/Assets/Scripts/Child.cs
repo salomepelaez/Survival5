@@ -66,7 +66,6 @@ public class Child : MonoBehaviour
 
             if(armed == true)
             {
-                childAttack = 10;
                 isArmed.text = "Armado";
             }
         }

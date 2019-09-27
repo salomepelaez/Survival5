@@ -21,5 +21,12 @@ public class Weapon : MonoBehaviour
         s.AddComponent<Rigidbody>();
     }
 
+    public void Update()
+    {
+        if(Child.armed == true)
+        {
+            Child.childAttack = 10;
+        }
+    }
 }
 
