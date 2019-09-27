@@ -13,7 +13,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public MonsterData monsterData;
             public Vector3 direction; // Se creó un Vector3 para la dirección.
             public MonsterColor mC;
-            public int health = 100;
+            public static int health = 100;
 
             public void Update()
             {

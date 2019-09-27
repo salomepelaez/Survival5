@@ -11,6 +11,7 @@ public class Child : MonoBehaviour
     ChildData cs; // Se creó una variable del Struct.
     GameObject pov; // Se creó un GameObject al que se le asignarán los componentes de la cámara. (pov: point of view)
     public readonly float sHero = Creator.sChild; // La variable se asignó como readonly, obteniéndola desde la clase Manager.
+    public Vector3 direction;
 
     // A continuación se crean las variables de Texto para el Canvas.
     public static Text message;
@@ -45,7 +46,7 @@ public class Child : MonoBehaviour
 
     private void Start()
     {
-        isArmed.text = "Desarmado";
+        isArmed.text = "Desarmado";        
     }
 
     //Rotación en Y.
@@ -60,15 +61,45 @@ public class Child : MonoBehaviour
             health.text = "";
         }
 
-        if(ChildMove.theWeapon == true)
+        if (ChildMove.theWeapon == true)
         {
             armed = true;
 
-            if(armed == true)
+            if (armed == true)
             {
                 isArmed.text = "Armado";
             }
         }
+
+        Trees closest1 = null;
+        //Puppet closest2 = null;
+        float closestDistance = 1.0f;
+
+        foreach (var t in FindObjectsOfType<Trees>())
+        {
+            float distance1 = Vector3.Distance(t.transform.position, transform.position);
+
+            if (distance1 < closestDistance)
+            {
+                closest1 = t;
+                closestDistance = distance1;
+                direction = Vector3.Normalize(t.transform.position - transform.position);
+            }
+
+            /* float distance2 = Vector3.Distance(t.transform.position, transform.position);
+
+             foreach (var p in FindObjectsOfType<Puppet>())
+             {
+                 if (distance1 < closestDistance)
+                 {
+                     closest2 = p;
+                     closestDistance = distance2;
+                     direction = Vector3.Normalize(p.transform.position - transform.position);
+                 }
+             }*/
+        }
+
+        Debug.Log(direction);
     }
 
     IEnumerator PrintMessages(Villagers villager) // Esta Corutina es la que asigna los mensajes de los ciudadanos.
@@ -81,6 +112,14 @@ public class Child : MonoBehaviour
         {
             message.text = "";
         }
+    }
+
+    IEnumerator StickTimer() 
+    {
+        weaponMessage.text = "Presiona E para recoger";
+        yield return new WaitForSeconds(3);
+        weaponMessage.text = "";
+
     }
 
     // La siguiente función es la encargada de imprimir los mensajes cuando hay colisión, utilizando las etiquetas.
@@ -116,8 +155,7 @@ public class Child : MonoBehaviour
 
         if (collision.transform.tag == "Weapon")
         {
-            weaponMessage.text = "Presiona E para recoger";
-            
+            StartCoroutine("StickTimer");           
             Debug.Log("ye baby");
         }
         

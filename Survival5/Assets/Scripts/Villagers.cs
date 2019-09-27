@@ -124,8 +124,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                         break;
                     case 5:
                         myMessage = "Busca una manera de protegerte";
-                        break;
-
+                        break;                   
                 }
 
                 return myMessage;
