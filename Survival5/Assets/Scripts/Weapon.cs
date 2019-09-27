@@ -21,12 +21,5 @@ public class Weapon : MonoBehaviour
         s.AddComponent<Rigidbody>();
     }
 
-    private void Start()
-    {
-        if(Child.armed == true)
-        {
-            Destroy(this);
-        }
-    }
 }
 

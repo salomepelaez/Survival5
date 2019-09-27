@@ -17,7 +17,9 @@ public class Child : MonoBehaviour
     public TextMeshProUGUI gameOver;
     public TextMeshProUGUI health;
     public Text weaponMessage;
+    public TextMeshProUGUI isArmed;
     public static bool armed = false;
+    public static int childAttack = 1;
 
     void Awake()
     {
@@ -36,8 +38,14 @@ public class Child : MonoBehaviour
         gameOver = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
         weaponMessage = GameObject.Find("Weapon").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
+        isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>();
         pov.transform.SetParent(this.transform);
-        pov.transform.localPosition = Vector3.zero;
+        pov.transform.localPosition = Vector3.zero; 
+    }
+
+    private void Start()
+    {
+        isArmed.text = "Desarmado";
     }
 
     //Rotación en Y.
@@ -50,6 +58,17 @@ public class Child : MonoBehaviour
         if(Creator.inGame == false)
         {
             health.text = "";
+        }
+
+        if(ChildMove.theWeapon == true)
+        {
+            armed = true;
+
+            if(armed == true)
+            {
+                childAttack = 10;
+                isArmed.text = "Armado";
+            }
         }
     }
 
@@ -99,11 +118,8 @@ public class Child : MonoBehaviour
         if (collision.transform.tag == "Weapon")
         {
             weaponMessage.text = "Presiona E para recoger";
-             if (Input.GetKey(KeyCode.E))
-             {
-                armed = true;
-                Debug.Log("armed");
-             }
+            
+            Debug.Log("ye baby");
         }
         
     }    

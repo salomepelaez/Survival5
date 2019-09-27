@@ -6,12 +6,17 @@ public class ChildMove : MonoBehaviour
 {
     public ChildAim hA; // Se creó una variable pública de HeroAim, a la cual se le asigna la cámara.
     public float speed; // Se creó un flotante para la velocidad. Esta es reasignada desde la clase "Hero".
-
+    public static bool theWeapon = false;
     void Update()
     {
         if (Creator.inGame == true)
         {
             Move(); // La función es llamada.
+
+            if(Input.GetKey(KeyCode.E))
+            {
+               theWeapon = true;
+            }
         }
     }
 
