@@ -10,6 +10,7 @@ TagManager:
   - Tree
   - Child
   - Weapon
+  - Blanket
   layers:
   - Default
   - TransparentFX
