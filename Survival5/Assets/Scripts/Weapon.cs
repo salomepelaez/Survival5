@@ -8,9 +8,7 @@ public class Weapon : MonoBehaviour
 {
     public GameObject weapon;
    // public GameObject weaponInHand;
-    
-    public readonly int childAttack = Child.childAttack;
-    
+        
     public void Start()
     {
         weapon.SetActive(true);
@@ -25,8 +23,7 @@ public class Weapon : MonoBehaviour
     {
         if(ChildMove.theWeapon == true)
         {
-            Child.childAttack = 20;
-            
+                       
         }
                
     }

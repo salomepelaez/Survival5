@@ -36,7 +36,7 @@ public class Creator : MonoBehaviour
 
     void Awake()
     {        
-        sChild = Random.Range(0.1f, 0.2f);
+        sChild = 0.2f;
 
         int rnd = Random.Range(minGen, maxGen); // La generación es producida entre el mínimo de objetos y el máximo.
 

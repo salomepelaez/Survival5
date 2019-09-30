@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 883774067459078824}
   - component: {fileID: 4303232609700888353}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: Blanket
+  m_TagString: Blanket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7567846436577983009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.510513, y: -7.035528, z: -14.585766}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 18.6462, y: -7.4533, z: -14.1355}
+  m_LocalScale: {x: 2.7287, y: 0.1644, z: 1.9005837}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c98aeb8cd300884469b1b7e218beb0cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
