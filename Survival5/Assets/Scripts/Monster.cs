@@ -14,7 +14,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public Vector3 direction; // Se creó un Vector3 para la dirección.
             public MonsterColor mC;
             public static int health = 100;
-
+            
             public void Update()
             {
                 // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
@@ -41,6 +41,10 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
         public class Puppet: Monster
         {
+            public static int damage = 15;
+            public static int force = 5;
+            public static int monsterDamage = damage + force;
+
             public void Start()
             {
                 target = FindObjectOfType<Child>().GetComponent<Transform>(); //Se asignó al héroe como target.
@@ -114,6 +118,10 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
         public class Trees: Monster
         {
+            public static int damage = 15;
+            public static int force = 15;
+            public static int monsterDamage = damage + force;
+
             public void Start()
             {
                 target = FindObjectOfType<Child>().GetComponent<Transform>(); //Se asignó al héroe como target.

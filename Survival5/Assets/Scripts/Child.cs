@@ -79,6 +79,7 @@ public class Child : MonoBehaviour
 
     // La siguiente función es la encargada de imprimir los mensajes cuando hay colisión, utilizando las etiquetas.
     int lifeCounter = 100;
+    
     public void OnCollisionEnter(Collision collision)
     {
        if (collision.transform.tag == "Villager")
@@ -88,36 +89,38 @@ public class Child : MonoBehaviour
 
         if (collision.transform.tag == "Puppet")
         {   
-            lifeCounter = lifeCounter - 20;
-
+            lifeCounter = lifeCounter - Puppet.monsterDamage;
+            
             if(unbreakable == true)
             {
-                lifeCounter = lifeCounter - 15;
-
-                if (lifeCounter <= 0)
-                {
-                    Creator.inGame = false;
-                    gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
-                }
+                Puppet.monsterDamage = Puppet.monsterDamage / 2;
             }
+
+            if (lifeCounter <= 0)
+            {
+                Creator.inGame = false;
+                gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
+            }
+            
 
                      
         }
 
         if (collision.transform.tag == "Tree")
         {
-            lifeCounter = lifeCounter - 25;
+            lifeCounter = lifeCounter - Trees.monsterDamage;
 
             if (unbreakable == true)
             {
-                lifeCounter = lifeCounter - 20;
-
-                if (lifeCounter <= 0)
-                {
-                    Creator.inGame = false;
-                    gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
-                }
+                Trees.monsterDamage = Trees.monsterDamage / 2;
             }
+
+            if (lifeCounter <= 0)
+            {
+                Creator.inGame = false;
+                gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
+            }
+            
         }
 
         
