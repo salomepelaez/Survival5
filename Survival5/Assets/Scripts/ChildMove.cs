@@ -11,12 +11,7 @@ public class ChildMove : MonoBehaviour
     {
         if (Creator.inGame == true)
         {
-            Move(); // La función es llamada.
-
-            if(Input.GetKey(KeyCode.E))
-            {
-               theWeapon = true;
-            }
+            Move(); // La función es llamada.           
         }
     }
 

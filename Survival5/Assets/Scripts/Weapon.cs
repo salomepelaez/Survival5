@@ -7,28 +7,29 @@ using NPC.Enemy;
 public class Weapon : MonoBehaviour
 {
     public GameObject weapon;
-    public GameObject weaponInHand;
-
-    Vector3 direction;
-
-    public void Awake()
+   // public GameObject weaponInHand;
+    
+    public readonly int childAttack = Child.childAttack;
+    
+    public void Start()
     {
-        transform.tag = "Weapon";
-        Vector3 post = new Vector3();
-        post.x = -20;
-        post.y = -0.5f;
-        post.z = 20;
+        weapon.SetActive(true);
 
-        GameObject s = Instantiate(weapon, post, Quaternion.identity);
-        s.AddComponent<Rigidbody>();
+        if (ChildMove.theWeapon == true)
+        {
+            weapon.SetActive(false);
+        }
     }
 
     public void Update()
     {
-        if(Child.armed == true)
+        if(ChildMove.theWeapon == true)
         {
-            Child.childAttack = 10;
+            Child.childAttack = 20;
+            
         }
-    }    
+               
+    }
+       
 }
 

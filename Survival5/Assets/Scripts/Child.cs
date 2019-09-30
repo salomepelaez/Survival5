@@ -10,7 +10,8 @@ public class Child : MonoBehaviour
 {
     ChildData cs; // Se creó una variable del Struct.
     GameObject pov; // Se creó un GameObject al que se le asignarán los componentes de la cámara. (pov: point of view)
-    public readonly float sHero = Creator.sChild; // La variable se asignó como readonly, obteniéndola desde la clase Manager.
+    public readonly float sChild = Creator.sChild; // La variable se asignó como readonly, obteniéndola desde la clase Manager.
+    public static int childAttack = 1;
     public Vector3 direction;
 
     // A continuación se crean las variables de Texto para el Canvas.
@@ -20,7 +21,6 @@ public class Child : MonoBehaviour
     public Text weaponMessage;
     public TextMeshProUGUI isArmed;
     public static bool armed = false;
-    public static int childAttack = 1;
 
     void Awake()
     {
@@ -32,7 +32,7 @@ public class Child : MonoBehaviour
         pov.AddComponent<Camera>();
         pov.AddComponent<ChildAim>();
         gameObject.AddComponent<ChildMove>();
-        gameObject.GetComponent<ChildMove>().speed = sHero; // Se utilizaron los miembros del Enum "Speed", y se reasigna la velocidad.
+        gameObject.GetComponent<ChildMove>().speed = sChild; // Se utilizaron los miembros del Enum "Speed", y se reasigna la velocidad.
 
         // A continuación se asignan lso mensajes directamente al Canvas. 
         message = GameObject.Find("VMessage").GetComponent<Text>();
@@ -46,7 +46,8 @@ public class Child : MonoBehaviour
 
     private void Start()
     {
-        isArmed.text = "Desarmado";        
+        isArmed.text = "Desarmado";
+        Debug.Log(childAttack);
     }
 
     //Rotación en Y.
@@ -63,43 +64,8 @@ public class Child : MonoBehaviour
 
         if (ChildMove.theWeapon == true)
         {
-            armed = true;
-
-            if (armed == true)
-            {
-                isArmed.text = "Armado";
-            }
-        }
-
-        Trees closest1 = null;
-        //Puppet closest2 = null;
-        float closestDistance = 1.0f;
-
-        foreach (var t in FindObjectsOfType<Trees>())
-        {
-            float distance1 = Vector3.Distance(t.transform.position, transform.position);
-
-            if (distance1 < closestDistance)
-            {
-                closest1 = t;
-                closestDistance = distance1;
-                direction = Vector3.Normalize(t.transform.position - transform.position);
-            }
-
-            /* float distance2 = Vector3.Distance(t.transform.position, transform.position);
-
-             foreach (var p in FindObjectsOfType<Puppet>())
-             {
-                 if (distance1 < closestDistance)
-                 {
-                     closest2 = p;
-                     closestDistance = distance2;
-                     direction = Vector3.Normalize(p.transform.position - transform.position);
-                 }
-             }*/
-        }
-
-        //Debug.Log(direction);
+            isArmed.text = "Armado";
+        }        
     }
 
     IEnumerator PrintMessages(Villagers villager) // Esta Corutina es la que asigna los mensajes de los ciudadanos.
@@ -112,14 +78,6 @@ public class Child : MonoBehaviour
         {
             message.text = "";
         }
-    }
-
-    IEnumerator StickTimer() 
-    {
-        weaponMessage.text = "Presiona E para recoger";
-        yield return new WaitForSeconds(3);
-        weaponMessage.text = "";
-
     }
 
     // La siguiente función es la encargada de imprimir los mensajes cuando hay colisión, utilizando las etiquetas.
@@ -153,13 +111,34 @@ public class Child : MonoBehaviour
             }
         }
 
-        if (collision.transform.tag == "Weapon")
-        {
-            StartCoroutine("StickTimer");           
-            Debug.Log("ye baby");
-        }
+      
         
-    }    
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.tag == "Weapon")
+        {
+            weaponMessage.text = "Presiona E para recoger";
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                other.transform.gameObject.SetActive(false);
+                weaponMessage.text = "";
+            }
+        }
+
+       
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Weapon")
+        {
+            weaponMessage.text = "";
+
+        }
+    }
     static float speed; // La velocidad se declaró como estática.
 }
 
