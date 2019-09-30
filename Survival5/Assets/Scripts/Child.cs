@@ -99,7 +99,7 @@ public class Child : MonoBehaviour
              }*/
         }
 
-        Debug.Log(direction);
+        //Debug.Log(direction);
     }
 
     IEnumerator PrintMessages(Villagers villager) // Esta Corutina es la que asigna los mensajes de los ciudadanos.

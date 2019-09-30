@@ -6,7 +6,9 @@ using NPC.Enemy;
 
 public class Weapon : MonoBehaviour
 {
-    public GameObject stick;
+    public GameObject weapon;
+    public GameObject weaponInHand;
+
     Vector3 direction;
 
     public void Awake()
@@ -17,8 +19,7 @@ public class Weapon : MonoBehaviour
         post.y = -0.5f;
         post.z = 20;
 
-        GameObject s = Instantiate(stick, post, Quaternion.identity);
-        s.GetComponent<Renderer>().material.color = Color.cyan;
+        GameObject s = Instantiate(weapon, post, Quaternion.identity);
         s.AddComponent<Rigidbody>();
     }
 

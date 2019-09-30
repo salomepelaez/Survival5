@@ -12,7 +12,7 @@ public class Creator : MonoBehaviour
     public static bool inGame = true; // Se creó un booleano que controla el estado activo del juego.
 
     GameObject thePeople; // Se creó un GameoObject con este nombre, pues será utilizado para Zombies, Ciudadanos y Héroe.
-    public GameObject stick;
+    public GameObject hero;
 
     System.Random random = new System.Random();
 
@@ -35,7 +35,7 @@ public class Creator : MonoBehaviour
     }
 
     void Awake()
-    {
+    {        
         sChild = Random.Range(0.1f, 0.2f);
 
         int rnd = Random.Range(minGen, maxGen); // La generación es producida entre el mínimo de objetos y el máximo.
@@ -43,19 +43,19 @@ public class Creator : MonoBehaviour
         for (int j = 0; j < rnd; j++) // Este For genera los objetos siguiendo los límites establecidos.
         {
             thePeople = GameObject.CreatePrimitive(PrimitiveType.Cube); // El GameObject "thePeople" genera los cubos para zombies, aldeanos y héroes.
-
             // El Vector3 de posición es el que servirá para generar los cubos en una posición aleatoria.
             Vector3 pos = new Vector3();
             pos.x = Random.Range(-50, 50);
             pos.z = Random.Range(-50, 50);
             thePeople.transform.position = pos; // A los cubos se les asigna la posición aleatoria antes mencionada.
-
+                       
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
 
             // El siguiente bloque de código se encarga de generar el héroe, está separado, pues a diferencia de los miembros de la aldea, solo debe ser creado una vez.
             if (j == 0)
             {
+                thePeople = Instantiate(hero, pos, Quaternion.identity);
                 thePeople.AddComponent<Child>(); // Se le agregan los componentes de la clase Hero.
                 thePeople.AddComponent<ChildAim>(); // Igualmente se le agregan los componentes de HeroAim.
                 thePeople.GetComponent<Renderer>().material.color = Color.black; // Se le asignó color negro para diferenciarlos de otros objetos.
