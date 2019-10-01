@@ -1035,7 +1035,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eebb2141776f6646ae902f29a59eae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePeople: {fileID: 0}
   hero: {fileID: 8743997573780783349, guid: cd2e349e2b5c2664c824d0456dbfe87f, type: 3}
   treesNum: {fileID: 419166083}
   puppetsNum: {fileID: 219105278}
@@ -1503,6 +1502,11 @@ PrefabInstance:
     - target: {fileID: 8743997573780783349, guid: cd2e349e2b5c2664c824d0456dbfe87f,
         type: 3}
       propertyPath: m_Name
+      value: Child
+      objectReference: {fileID: 0}
+    - target: {fileID: 8743997573780783349, guid: cd2e349e2b5c2664c824d0456dbfe87f,
+        type: 3}
+      propertyPath: m_TagString
       value: Child
       objectReference: {fileID: 0}
     - target: {fileID: 8319063600158101553, guid: cd2e349e2b5c2664c824d0456dbfe87f,

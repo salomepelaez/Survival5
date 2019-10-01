@@ -10,6 +10,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
     {
         public abstract class Monster : NPCConduct
         {
+            
             public MonsterData monsterData;
             public Vector3 direction; // Se creó un Vector3 para la dirección.
             public MonsterColor mC;
@@ -37,6 +38,8 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
                 NPCMove();
             }
+
+            
         }
 
         public class Puppet: Monster
@@ -45,14 +48,18 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public static int force = 5;
             public static int monsterDamage = damage + force;
 
+            private void Awake()
+            {
+                transform.tag = "Puppet"; // Se cambió el nombre de la etiqueta.
+                transform.name = "Puppet"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
+            }
+
             public void Start()
             {
                 target = FindObjectOfType<Child>().GetComponent<Transform>(); //Se asignó al héroe como target.
 
                 InvokeRepeating("NPCAssignment", 3.0f, 3.0f); // Se llama la repetición para el comportamiento.
-                transform.tag = "Puppet"; // Se cambió el nombre de la etiqueta.
-                transform.name = "Puppet"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
-
+                
                 mC = MonsterColor.Rojo;
                 if (mC == MonsterColor.Rojo)
                 {
@@ -113,7 +120,15 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                         break;
                 }
             }
-            
+
+            private void OnTriggerStay(Collider other)
+            {
+                if (other.transform.tag == "Child")
+                {
+                    Debug.Log("aish");
+                }
+            }
+
         }
 
         public class Trees: Monster
@@ -122,14 +137,18 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public static int force = 15;
             public static int monsterDamage = damage + force;
 
+            private void Awake()
+            {
+                transform.tag = "Tree"; // Se cambió el nombre de la etiqueta.
+                transform.name = "Tree"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
+            }
+
             public void Start()
             {
                 target = FindObjectOfType<Child>().GetComponent<Transform>(); //Se asignó al héroe como target.
 
                 InvokeRepeating("NPCAssignment", 3.0f, 3.0f); // Se llama la repetición para el comportamiento.
-                transform.tag = "Tree"; // Se cambió el nombre de la etiqueta.
-                transform.name = "Tree"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
-
+               
                 mC = MonsterColor.Verde;
                 if (mC == MonsterColor.Verde)
                 {

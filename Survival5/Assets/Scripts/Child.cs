@@ -91,10 +91,7 @@ public class Child : MonoBehaviour
             {
                 Creator.inGame = false;
                 gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
-            }
-            
-
-                     
+            }  
         }
 
         if (collision.transform.tag == "Tree")
@@ -144,11 +141,6 @@ public class Child : MonoBehaviour
                 Debug.Log("mamadísimo");
             }
         }
-
-        if (other.transform.tag == "Puppet")
-        {
-            Debug.Log("ola");
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -156,7 +148,6 @@ public class Child : MonoBehaviour
         if (other.transform.tag == "Weapon")
         {
             objectsMessage.text = "";
-
         }
     }
     static float speed; // La velocidad se declaró como estática.
