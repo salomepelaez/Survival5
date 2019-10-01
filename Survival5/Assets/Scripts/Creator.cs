@@ -26,8 +26,6 @@ public class Creator : MonoBehaviour
     public string message;
     public static string goMessage;
 
-    public static float sChild; // En esta línea se declara la velocidad estática del héroe, que luego se utiliza en la clase Hero.
-
     // A continuación en el constructor se asignó el número aleatorio para el mínimo de la creación de objetos.
     public Creator()
     {
@@ -35,9 +33,7 @@ public class Creator : MonoBehaviour
     }
 
     void Awake()
-    {        
-        sChild = 0.2f;
-
+    {     
         int rnd = Random.Range(minGen, maxGen); // La generación es producida entre el mínimo de objetos y el máximo.
 
         for (int j = 0; j < rnd; j++) // Este For genera los objetos siguiendo los límites establecidos.
@@ -52,26 +48,32 @@ public class Creator : MonoBehaviour
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
 
-                switch (Random.Range(0, 3))
-                {
-                    case 0:
-                        thePeople.AddComponent<Villagers>(); // Se agregan los componentes de su respectiva clase. 
-                        break;
-                    case 1:
-                        thePeople.AddComponent<Puppet>(); // Se agregan los componentes de su respectiva clase. 
-                        break;
-                    case 2:
-                        thePeople.AddComponent<Trees>(); // Se agregan los componentes de su respectiva clase.
-                        break;
-                }
-            
+            switch (Random.Range(0, 3))
+            {
+                case 0:
+                    thePeople.AddComponent<Villagers>(); // Se agregan los componentes de su respectiva clase. 
+                    break;
+                case 1:
+                    thePeople.AddComponent<Puppet>(); // Se agregan los componentes de su respectiva clase. 
+                    break;
+                case 2:
+                    thePeople.AddComponent<Trees>(); // Se agregan los componentes de su respectiva clase.
+                    break;
+            }            
         }        
     }
 
     private void Start()
     {
        goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.
+       
+        if(bigWinner == true)
+        {
+            goMessage = Winner();
+        }
     }
+
+    bool bigWinner;
 
     private void Update()
     {
@@ -83,7 +85,7 @@ public class Creator : MonoBehaviour
         foreach (Trees tree in Transform.FindObjectsOfType<Trees>())
         {
             a = a + 1;
-            treesNum.text = "Árboles: " + a;
+            treesNum.text = "Trees: " + a;
 
             if (inGame == false)
             {
@@ -94,7 +96,7 @@ public class Creator : MonoBehaviour
         foreach (Puppet puppet in Transform.FindObjectsOfType<Puppet>())
         {
             p = p + 1;
-            puppetsNum.text = "Marionetas: " + p;
+            puppetsNum.text = "Puppets: " + p;
 
             if (inGame == false)
             {
@@ -116,8 +118,7 @@ public class Creator : MonoBehaviour
         if (a == 0 && p == 0)
         {
             inGame = false;
-
-            message = "Winner!";
+            bigWinner = true;
         }
     }
 
@@ -126,6 +127,12 @@ public class Creator : MonoBehaviour
     {
         message = "Game Over";
 
+        return message;
+    }
+
+    public string Winner()
+    {
+        message = "Winner!";
         return message;
     }
 }

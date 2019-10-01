@@ -39,6 +39,11 @@ public class Child : MonoBehaviour
         weaponInHand.SetActive(false);
         isArmed.text = "Desarmado";
         Debug.Log("Daño de ataque: " + childAttack);
+
+        if (Creator.inGame == false)
+        {
+            isArmed.text = "";
+        }
     }
 
     //Rotación en Y.
