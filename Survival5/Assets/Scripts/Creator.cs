@@ -116,6 +116,8 @@ public class Creator : MonoBehaviour
         if (a == 0 && p == 0)
         {
             inGame = false;
+
+            message = "Winner!";
         }
     }
 
