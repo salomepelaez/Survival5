@@ -39,25 +39,21 @@ public class Child : MonoBehaviour
         weaponInHand.SetActive(false);
         isArmed.text = "Desarmado";
         Debug.Log("Daño de ataque: " + childAttack);
-
-        if(armed == true)
-        {
-            childAttack = 20;
-            Debug.Log(childAttack);
-        }
-
     }
 
     //Rotación en Y.
     public void Update()
-    {       
-
+    {     
         health.text = "Salud: " + lifeCounter;  
         if(Creator.inGame == false)
         {
             health.text = "";
         }
-     
+
+        if (armed == true)
+        {
+            childAttack = 20;
+        }
     }
 
     IEnumerator PrintMessages(Villagers villager) // Esta Corutina es la que asigna los mensajes de los ciudadanos.

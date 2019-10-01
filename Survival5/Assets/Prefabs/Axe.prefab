@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 2052331091326864739}
   - component: {fileID: 1732026925994759805}
   - component: {fileID: 5164422949838767820}
+  - component: {fileID: 4213838983800301473}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Weapon
@@ -183,4 +184,17 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!65 &4213838983800301473
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5164191093483105014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 1.9999999, z: 20}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
