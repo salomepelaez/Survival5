@@ -52,18 +52,18 @@ public class Creator : MonoBehaviour
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
 
-                switch (Random.Range(0, 3))
-                {
-                    case 0:
-                        thePeople.AddComponent<Villagers>(); // Se agregan los componentes de su respectiva clase. 
-                        break;
-                    case 1:
-                        thePeople.AddComponent<Puppet>(); // Se agregan los componentes de su respectiva clase. 
-                        break;
-                    case 2:
-                        thePeople.AddComponent<Trees>(); // Se agregan los componentes de su respectiva clase.
-                        break;
-                }
+            switch (Random.Range(0, 3))
+            {
+                case 0:
+                    thePeople.AddComponent<Villagers>(); // Se agregan los componentes de su respectiva clase. 
+                    break;
+                case 1:
+                    thePeople.AddComponent<Puppet>(); // Se agregan los componentes de su respectiva clase. 
+                    break;
+                case 2:
+                    thePeople.AddComponent<Trees>(); // Se agregan los componentes de su respectiva clase.
+                    break;
+            }
             
         }        
     }

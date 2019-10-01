@@ -9,7 +9,7 @@ using TMPro;
 public class Child : MonoBehaviour
 {
     ChildData cs; // Se creó una variable del Struct.
-    public int childAttack = 1;
+    public int childAttack;
     public GameObject weaponInHand;
 
     // A continuación se crean las variables de Texto para el Canvas.
@@ -19,6 +19,7 @@ public class Child : MonoBehaviour
     public Text objectsMessage;
     public TextMeshProUGUI isArmed;
     public static bool unbreakable = false;
+    public bool armed = false;
 
     void Awake()
     {
@@ -37,7 +38,13 @@ public class Child : MonoBehaviour
     {
         weaponInHand.SetActive(false);
         isArmed.text = "Desarmado";
-        Debug.Log(childAttack);
+        Debug.Log("Daño de ataque: " + childAttack);
+
+        if(armed == true)
+        {
+            childAttack = 20;
+            Debug.Log(childAttack);
+        }
 
     }
 
@@ -107,12 +114,8 @@ public class Child : MonoBehaviour
             {
                 Creator.inGame = false;
                 gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
-            }
-            
+            }            
         }
-
-        
-
     }
 
     private void OnTriggerStay(Collider other)
@@ -127,7 +130,8 @@ public class Child : MonoBehaviour
                 isArmed.text = "Armado";
                 objectsMessage.text = "";
 
-                childAttack = 20;
+                armed = true;
+                Debug.Log(armed);
             }
         }
 
@@ -143,6 +147,11 @@ public class Child : MonoBehaviour
                 unbreakable = true;
                 Debug.Log("mamadísimo");
             }
+        }
+
+        if (other.transform.tag == "Puppet")
+        {
+            Debug.Log("ola");
         }
     }
 
