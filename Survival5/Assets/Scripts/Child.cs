@@ -9,7 +9,7 @@ using TMPro;
 public class Child : MonoBehaviour
 {
     ChildData cs; // Se creó una variable del Struct.
-    public int childAttack;
+    public  static int childAttack = 1;
     public GameObject weaponInHand;
 
     // A continuación se crean las variables de Texto para el Canvas.
@@ -121,6 +121,7 @@ public class Child : MonoBehaviour
             {
                 other.transform.gameObject.SetActive(false);
                 isArmed.text = "Armado";
+                weaponInHand.SetActive(true);
                 objectsMessage.text = "";
 
                 armed = true;

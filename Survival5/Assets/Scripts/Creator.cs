@@ -85,7 +85,7 @@ public class Creator : MonoBehaviour
             a = a + 1;
             treesNum.text = "Árboles: " + a;
 
-            if (Creator.inGame == false)
+            if (inGame == false)
             {
                 treesNum.text = "";
             }
@@ -96,7 +96,7 @@ public class Creator : MonoBehaviour
             p = p + 1;
             puppetsNum.text = "Marionetas: " + p;
 
-            if (Creator.inGame == false)
+            if (inGame == false)
             {
                 puppetsNum.text = "";
             }
@@ -107,10 +107,15 @@ public class Creator : MonoBehaviour
             v = v + 1;
             villagersNum.text = "Villagers: " + v;
 
-            if (Creator.inGame == false)
+            if (inGame == false)
             {
                 villagersNum.text = "";
             }
+        }
+
+        if (a == 0 && p == 0)
+        {
+            inGame = false;
         }
     }
 

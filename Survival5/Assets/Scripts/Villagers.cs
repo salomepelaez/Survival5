@@ -59,7 +59,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             {
                 if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
                 {
-                    attackRange = Vector3.Distance(target.position, transform.position); // El rango de ataque se basa en la distancia con el Target.
                     float rotationSpeed = 25f; // Se creó una variable mucho mayor que la velocidad general del zombie, para que su rotación pueda ser visible.
 
                     if (move == "Moving")
@@ -105,7 +104,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             {
                 string myMessage = "";
 
-                switch(Random.Range(0,6))
+                switch(Random.Range(0,7))
                 {
                     case 0:
                         myMessage = "No debes ir al bosque sin adulto";
@@ -124,7 +123,10 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                         break;
                     case 5:
                         myMessage = "Busca una manera de protegerte";
-                        break;                   
+                        break;
+                    case 6:
+                        myMessage = "Dijiste la 13 :O";
+                        break;
                 }
 
                 return myMessage;

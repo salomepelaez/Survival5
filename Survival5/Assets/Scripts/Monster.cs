@@ -14,7 +14,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public MonsterData monsterData;
             public Vector3 direction; // Se creó un Vector3 para la dirección.
             public MonsterColor mC;
-            public static int health = 100;
             
             public void Update()
             {
@@ -37,9 +36,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
 
                 NPCMove();
-            }
-
-            
+            }            
         }
 
         public class Puppet: Monster
@@ -47,6 +44,8 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public static int damage = 15;
             public static int force = 5;
             public static int monsterDamage = damage + force;
+
+            int health = 100;
 
             private void Awake()
             {
@@ -125,10 +124,18 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             {
                 if (other.transform.tag == "Child")
                 {
-                    Debug.Log("aish");
+                    if(Input.GetButtonDown("Fire1"))
+                    {
+                        health = health - Child.childAttack;
+                        Debug.Log(health);
+
+                        if(health <= 0)
+                        {
+                            Destroy(this.gameObject);
+                        }
+                    }
                 }
             }
-
         }
 
         public class Trees: Monster
@@ -136,6 +143,8 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             public static int damage = 15;
             public static int force = 15;
             public static int monsterDamage = damage + force;
+
+            int health = 100;
 
             private void Awake()
             {
@@ -174,8 +183,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                     m = Move.Reacting;
                     direction = Vector3.Normalize(target.transform.position - transform.position);
                     transform.position += direction * npcSpeed * Time.deltaTime;
-                }
-                
+                }                
             }
             
             // Esta es la función que asigna los estados.
@@ -190,7 +198,23 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
-            
+            private void OnTriggerStay(Collider other)
+            {
+                if (other.transform.tag == "Child")
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        health = health - Child.childAttack;
+                        Debug.Log(health);
+
+                        if (health <= 0)
+                        {
+                            Destroy(this.gameObject);
+                            health = 100;
+                        }
+                    }
+                }
+            }
         }
 
         public struct MonsterData // Este Struct almacena todos los datos
