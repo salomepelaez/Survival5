@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class ChildMove : MonoBehaviour
 {
-    public ChildAim hA; // Se creó una variable pública de HeroAim, a la cual se le asigna la cámara.
-    public float speed; // Se creó un flotante para la velocidad. Esta es reasignada desde la clase "Hero".
+    public GameObject hA; // Se creó una variable pública de HeroAim, a la cual se le asigna la cámara.
+    float speed = 0.2f; // Se creó un flotante para la velocidad. Esta es reasignada desde la clase "Hero".
     public static bool theWeapon = false;
     void Update()
     {
         if (Creator.inGame == true)
         {
-            Move(); // La función es llamada.           
-        }
+            Move(); // La función es llamada. 
+
+            float rotat = hA.transform.eulerAngles.y;
+            transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
+        }       
     }
 
     private void Move() // Se creó una función para el movimiento, que luego es llamada en el Update.

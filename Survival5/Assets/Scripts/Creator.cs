@@ -52,16 +52,6 @@ public class Creator : MonoBehaviour
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
 
-            // El siguiente bloque de código se encarga de generar el héroe, está separado, pues a diferencia de los miembros de la aldea, solo debe ser creado una vez.
-            if (j == 0)
-            {
-                thePeople.AddComponent<Child>(); // Se le agregan los componentes de la clase Hero.
-                thePeople.AddComponent<ChildAim>(); // Igualmente se le agregan los componentes de HeroAim.
-                thePeople.GetComponent<Renderer>().material.color = Color.black; // Se le asignó color negro para diferenciarlos de otros objetos.
-            }
-
-            else
-            {
                 switch (Random.Range(0, 3))
                 {
                     case 0:
@@ -74,7 +64,7 @@ public class Creator : MonoBehaviour
                         thePeople.AddComponent<Trees>(); // Se agregan los componentes de su respectiva clase.
                         break;
                 }
-            }
+            
         }        
     }
 

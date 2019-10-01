@@ -9,10 +9,8 @@ using TMPro;
 public class Child : MonoBehaviour
 {
     ChildData cs; // Se creó una variable del Struct.
-    GameObject pov; // Se creó un GameObject al que se le asignarán los componentes de la cámara. (pov: point of view)
-    public readonly float sChild = Creator.sChild; // La variable se asignó como readonly, obteniéndola desde la clase Manager.
+    //GameObject pov; // Se creó un GameObject al que se le asignarán los componentes de la cámara. (pov: point of view)
     public int childAttack = 1;
-    public Vector3 direction;
 
     // A continuación se crean las variables de Texto para el Canvas.
     public static Text message;
@@ -28,11 +26,9 @@ public class Child : MonoBehaviour
         transform.tag = "Child";
 
         // Al GameObject se le asignaron los componentes de cámara, rotación y movimiento.
-        GameObject pov = new GameObject();
+       /* GameObject pov = new GameObject();
         pov.AddComponent<Camera>();
-        pov.AddComponent<ChildAim>();
-        gameObject.AddComponent<ChildMove>();
-        gameObject.GetComponent<ChildMove>().speed = sChild; // Se utilizaron los miembros del Enum "Speed", y se reasigna la velocidad.
+        pov.AddComponent<ChildAim>();*/
 
         // A continuación se asignan lso mensajes directamente al Canvas. 
         message = GameObject.Find("VMessage").GetComponent<Text>();
@@ -40,8 +36,8 @@ public class Child : MonoBehaviour
         objectsMessage = GameObject.Find("Objects").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
         isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>();
-        pov.transform.SetParent(this.transform);
-        pov.transform.localPosition = Vector3.zero; 
+        //pov.transform.SetParent(this.transform);
+       // pov.transform.localPosition = Vector3.zero; 
     }
 
     private void Start()
@@ -53,9 +49,7 @@ public class Child : MonoBehaviour
 
     //Rotación en Y.
     public void Update()
-    {
-        float rotat = transform.eulerAngles.y;
-        transform.rotation = Quaternion.Euler(0.0f, rotat, 0.0f);
+    {       
 
         health.text = "Salud: " + lifeCounter;  
         if(Creator.inGame == false)
