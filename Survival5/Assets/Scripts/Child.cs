@@ -9,8 +9,8 @@ using TMPro;
 public class Child : MonoBehaviour
 {
     ChildData cs; // Se creó una variable del Struct.
-    //GameObject pov; // Se creó un GameObject al que se le asignarán los componentes de la cámara. (pov: point of view)
     public int childAttack = 1;
+    public GameObject weaponInHand;
 
     // A continuación se crean las variables de Texto para el Canvas.
     public static Text message;
@@ -25,23 +25,17 @@ public class Child : MonoBehaviour
         transform.name = "Child"; // Se transformó su nombre para identificarlo más rápidamente.
         transform.tag = "Child";
 
-        // Al GameObject se le asignaron los componentes de cámara, rotación y movimiento.
-       /* GameObject pov = new GameObject();
-        pov.AddComponent<Camera>();
-        pov.AddComponent<ChildAim>();*/
-
         // A continuación se asignan lso mensajes directamente al Canvas. 
         message = GameObject.Find("VMessage").GetComponent<Text>();
         gameOver = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
         objectsMessage = GameObject.Find("Objects").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
-        isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>();
-        //pov.transform.SetParent(this.transform);
-       // pov.transform.localPosition = Vector3.zero; 
+        isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>(); 
     }
 
     private void Start()
     {
+        weaponInHand.SetActive(false);
         isArmed.text = "Desarmado";
         Debug.Log(childAttack);
 
