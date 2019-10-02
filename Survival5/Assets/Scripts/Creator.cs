@@ -13,12 +13,7 @@ public class Creator : MonoBehaviour
 
     GameObject thePeople; // Se creó un GameoObject con este nombre, pues será utilizado para Zombies, Ciudadanos y Héroe.
     public GameObject hero;
-
-    System.Random random = new System.Random();
-
-    public const int maxGen = 5; // Se creó una variable constante para el número máximo de generación.
-    public readonly int minGen; // Se declaró un readonly para el mínimo posible de generación de objetos. 
-
+    
     // Las siguientes variables del tipo texto son las que abrigan los contadores del Canvas.
     public TextMeshProUGUI treesNum;
     public TextMeshProUGUI puppetsNum;
@@ -28,23 +23,19 @@ public class Creator : MonoBehaviour
     public static string w;
     public TextMeshProUGUI theW;
 
-    // A continuación en el constructor se asignó el número aleatorio para el mínimo de la creación de objetos.
-    public Creator()
-    {
-        minGen = random.Next(1, 3);
-    }
-
-    void Awake()
+    private void Start()
     {
         Initialize();
+        goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.  
+
     }
 
     private void Initialize()
     {
+        int minGen = Random.Range(5, 26);
         theW = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>();
-        int rnd = Random.Range(minGen, maxGen); // La generación es producida entre el mínimo de objetos y el máximo.
 
-        for (int j = 0; j < rnd; j++) // Este For genera los objetos siguiendo los límites establecidos.
+        for (int j = 0; j < minGen; j++) // Este For genera los objetos siguiendo los límites establecidos.
         {
             Vector3 pos = new Vector3();
             thePeople = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -69,12 +60,6 @@ public class Creator : MonoBehaviour
                     break;
             }
         }
-    }
-
-    private void Start()
-    {
-       goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.  
-       
     }
 
     public static bool bigWinner;

@@ -43,12 +43,11 @@ public class Child : MonoBehaviour
 
     private void Start()
     {
-        weaponInHand.SetActive(false);
-        isArmed.text = "Desarmado";
+        weaponInHand.SetActive(false);        
 
-        if (Creator.inGame == false)
+        if (Creator.inGame == true)
         {
-            isArmed.text = "";
+            isArmed.text = "Desarmado";
         }
     }
 
