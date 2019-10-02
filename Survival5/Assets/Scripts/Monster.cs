@@ -22,9 +22,9 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 NPCMove();
             }
 
+            // La siguiente función lee la posición de los aldeanos, cuando la distancia es menor al rango, los enemigos pasan a perseguirlos.
             public void GetTarget()
-            {
-                // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
+            {                
                 Villagers closest = null;
                 float closestDistance = 5.0f;
 
@@ -46,9 +46,9 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
         sealed class Puppet: Monster
         {
-            public static int monsterDamage = 10;
+            public static int monsterDamage = 10; // El daño es menor al de los árboles.
 
-            int health = 100;
+            int health = 100; // Se asignó la salud.
 
             private void Awake()
             {
@@ -69,13 +69,13 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
-            
+            // La siguiente función sobreescrita es la encargada de generar el movimiento.
             public override void NPCMove()
             {
                 if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
                 {
                     attackRange = Vector3.Distance(target.position, transform.position); // El rango de ataque se basa en la distancia con el Target.
-                    float rotationSpeed = 25f; // Se creó una variable mucho mayor que la velocidad general del zombie, para que su rotación pueda ser visible.
+                    float rotationSpeed = 25f; 
 
                     if (move == "Moving")
                     {
@@ -123,6 +123,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
+            // La siguiente función lee la distancia del héroe, cuando este entra en el Trigger, y presiona la tecla del mouse, el enemigo procede disminuir su salud.
             private void OnTriggerStay(Collider other)
             {
                 if (other.transform.tag == "Child")
@@ -143,7 +144,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
         sealed class Trees: Monster
         {
-            public static int monsterDamage = 15;
+            public static int monsterDamage = 15; // El daño de ataque es un poco mayor que el de los otros enemigos.
 
             int health = 100;
 
@@ -166,12 +167,12 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
+            // Los árboles solo proceden a moverse cuando el héroe o ciudadano entra en su rango de ataque.
             public override void NPCMove()
             {
                 if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
                 {
                     attackRange = Vector3.Distance(target.position, transform.position); // El rango de ataque se basa en la distancia con el Target.
-
                 }
 
                 else if (move == "Idle")
@@ -199,6 +200,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
+            // La siguiente función lee la distancia del héroe, cuando este entra en el Trigger, y presiona la tecla del mouse, el enemigo procede disminuir su salud.
             private void OnTriggerStay(Collider other)
             {
                 if (other.transform.tag == "Child")

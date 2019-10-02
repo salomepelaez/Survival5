@@ -8,8 +8,8 @@ using TMPro;
 
 public class Child : MonoBehaviour
 {
-    public static int childAttack = 1;
-    public GameObject weaponInHand;
+    public static int childAttack = 1; // El daño de ataque es mínimo porque es un niño desarmado.
+    public GameObject weaponInHand; // A este GameObject se le asigna el prefab del hacha en la mano.
 
     // A continuación se crean las variables de Texto para el Canvas.
     public static Text message;
@@ -17,6 +17,8 @@ public class Child : MonoBehaviour
     public TextMeshProUGUI health;
     public Text objectsMessage;
     public TextMeshProUGUI isArmed;    
+
+    // Los siguientes booleanos son de protección y defensa, correspondientemente.
     public static bool unbreakable = false;
     public bool armed = false;
 
@@ -25,13 +27,10 @@ public class Child : MonoBehaviour
         transform.name = "Child"; // Se transformó su nombre para identificarlo más rápidamente.
         transform.tag = "Child";
 
-        // A continuación se asignan lso mensajes directamente al Canvas. 
         Initialize();
     }
 
-    /// <summary>
-    /// Initilizes required components
-    /// </summary>
+    // En la inicialización se asignan los mensajes al canvas.
     private void Initialize()
     {
         message = GameObject.Find("VMessage").GetComponent<Text>();
@@ -43,24 +42,24 @@ public class Child : MonoBehaviour
 
     private void Start()
     {
-        weaponInHand.SetActive(false);        
+        weaponInHand.SetActive(false); // El arma en la mano se ha puesto como falsa, pues de primera mano no es necesario que se vea.       
 
-        if (Creator.inGame == true)
+        if (Creator.inGame == true) // Cuando el juego recién comienza, el texto de estado del arma es el siguiente:
         {
             isArmed.text = "Desarmado";
         }
     }
 
-    //Rotación en Y.
     public void Update()
     {     
-        health.text = "Salud: " + lifeCounter;  
+        health.text = "Salud: " + lifeCounter; // El contador de salud es el encargado de mostrar cuánta vida le queda al héroe.
+        
         if(Creator.inGame == false)
         {
             health.text = "";
         }
 
-        if (armed == true)
+        if (armed == true) // Cuando el héroe pasa a estar armado, el daño de ataque aumenta.
         {
             childAttack = 20;
         }
@@ -78,8 +77,8 @@ public class Child : MonoBehaviour
         }
     }
 
-    // La siguiente función es la encargada de imprimir los mensajes cuando hay colisión, utilizando las etiquetas.
-    int lifeCounter = 100;
+    // La siguiente función es la encargada de registrar la colisión y el daño.
+    int lifeCounter = 100; // El héroe posee la misma vida que los enemigos, si el contador llega a 0, el héroe muere.
     
     public void OnCollisionEnter(Collision collision)
     {
@@ -88,6 +87,7 @@ public class Child : MonoBehaviour
             StartCoroutine("PrintMessages", collision.transform.GetComponent<Villagers>());
        }
 
+        // Cuando el héroe registra una colisión con un enemigo, pasa a perder vida.
         if (collision.transform.tag == "Puppet")
         {   
             lifeCounter = lifeCounter - Puppet.monsterDamage;
@@ -100,7 +100,7 @@ public class Child : MonoBehaviour
             if (lifeCounter <= 0)
             {
                 Creator.inGame = false;
-                gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
+                gameOver.text = Creator.goMessage; 
             }  
         }
 
@@ -116,10 +116,14 @@ public class Child : MonoBehaviour
             if (lifeCounter <= 0)
             {
                 Creator.inGame = false;
-                gameOver.text = Creator.goMessage; // Igualmente, cuando esto sucede el mensaje de GameOver pasa a ser visible en la escena.
+                gameOver.text = Creator.goMessage; 
             }            
         }
     }
+
+    // El siguiente OnTriggerStay permite recoger objetos en la escena.
+    // El arma brinda defensa.
+    // La manta brinda protección.
 
     private void OnTriggerStay(Collider other)
     {

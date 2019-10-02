@@ -10,7 +10,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 {
     namespace Ally // Este es el namespace anidado
     {
-        public class Villagers : NPCConduct
+        public class Villagers : NPCConduct // La clase Villagers hereda la función de comportamiento.
         {
             public VillagersData villagersData; // Se creó una variable del Struct.
 
@@ -53,7 +53,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
-            public override void NPCMove()
+            public override void NPCMove() // Se sobreescribe la función de la clase heredada.
             {
                 if (Creator.inGame == true) // Solamente cuando el juego está activo el movimiento se genera.
                 {
@@ -98,7 +98,8 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
 
-            public string Message()
+            // A continuación se asignan los mensajes.
+            public string Message()  
             {
                 string myMessage = "";
 
@@ -130,6 +131,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 return myMessage;
             }
 
+            // El siguiente bloque de código lee las colisiones y convierte a los ciudadanos con los datos del enemigo.
             public void OnCollisionEnter(Collision collision)
             {
                 if (collision.transform.tag == "Tree")
@@ -145,7 +147,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 }
             }
         }
-
 
         public struct VillagersData // Este Struct almacena las variables.
         {

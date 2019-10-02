@@ -12,8 +12,7 @@ public abstract class NPCConduct : MonoBehaviour
     public Transform target; // Se creó un Transform público, que luego es asignado respectivamente en la clase Hero, Villager y Zombie.
 
     // Este void se encarga del movimiento.
-    public abstract void NPCMove();
-   
+    public abstract void NPCMove();   
 
     public static Move m;
     public string move;

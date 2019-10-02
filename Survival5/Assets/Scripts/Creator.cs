@@ -11,13 +11,14 @@ public class Creator : MonoBehaviour
 {
     public static bool inGame = true; // Se creó un booleano que controla el estado activo del juego.
 
-    GameObject thePeople; // Se creó un GameoObject con este nombre, pues será utilizado para Zombies, Ciudadanos y Héroe.
-    public GameObject hero;
-    
+    GameObject thePeople;
+
     // Las siguientes variables del tipo texto son las que abrigan los contadores del Canvas.
     public TextMeshProUGUI treesNum;
     public TextMeshProUGUI puppetsNum;
     public TextMeshProUGUI villagersNum;
+
+    // Las siguientes variables almacenarán los mensajes del UI.
     public string message;
     public static string goMessage;
     public static string w;
@@ -25,15 +26,14 @@ public class Creator : MonoBehaviour
 
     private void Start()
     {
-        Initialize();
+        Initialize(); // Se llama la función para inicializar.
         goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.  
-
     }
 
     private void Initialize()
     {
         int minGen = Random.Range(5, 26);
-        theW = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>();
+        theW = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>(); // Se asignó el mensaje del ganador al Canvas.
 
         for (int j = 0; j < minGen; j++) // Este For genera los objetos siguiendo los límites establecidos.
         {
@@ -42,7 +42,7 @@ public class Creator : MonoBehaviour
 
             pos.x = Random.Range(-50, 50);
             pos.z = Random.Range(-50, 50);
-            thePeople.transform.position = pos; // A los cubos se les asigna la posición aleatoria antes mencionada.
+            thePeople.transform.position = pos; // A los cubos se les asigna una posición aleatoria.
 
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
@@ -62,21 +62,20 @@ public class Creator : MonoBehaviour
         }
     }
 
-    public static bool bigWinner;
+    bool bigWinner; // Con este bool se activará el texto en caso de ganar.
 
     private void Update()
     {
-        Counter();
+        Counter(); // Se llamó a la función que hace el conteo de NPCs en la escena
 
         if(bigWinner == true)
         {
-            theW.text = Winner();
+            theW.text = Winner(); 
         }
     }
 
-    private void Counter()
+    private void Counter() // Esta función contea y proyecta la cantidad de NPCs en un Canvas.
     {
-        // El siguiente bloque de código genera los contadores de NPC´s en la escena.
         int v = 0;
         int a = 0;
         int p = 0;
@@ -114,15 +113,14 @@ public class Creator : MonoBehaviour
             }
         }
 
-        if (a ==0  && p == 0)
+        if (a ==0  && p == 0) // Si los contadores de enemigos llegan a 0, el booleano de ganador pasa a ser verdadero y activar un texto.
         {
             inGame = false;
             bigWinner = true;
-            Debug.Log("ye baby");
         }
     }
 
-    // Se creó un String que retorna el mensaje, que luego es asignado en el Start.
+    // Se crearon dos Strings que retornan los mensajes, que luego son asignados en otra función.
     public string GameOver()
     {
         message = "Game Over";
