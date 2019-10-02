@@ -27,18 +27,25 @@ public class Child : MonoBehaviour
         transform.tag = "Child";
 
         // A continuación se asignan lso mensajes directamente al Canvas. 
+        Initialize();
+    }
+
+    /// <summary>
+    /// Initilizes required components
+    /// </summary>
+    private void Initialize()
+    {
         message = GameObject.Find("VMessage").GetComponent<Text>();
         gameOver = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
         objectsMessage = GameObject.Find("Objects").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
-        isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>(); 
+        isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
     {
         weaponInHand.SetActive(false);
         isArmed.text = "Desarmado";
-        Debug.Log("Daño de ataque: " + childAttack);
 
         if (Creator.inGame == false)
         {
@@ -89,7 +96,7 @@ public class Child : MonoBehaviour
             
             if(unbreakable == true)
             {
-                Puppet.monsterDamage = Puppet.monsterDamage / 2;
+                lifeCounter = lifeCounter - (Puppet.monsterDamage/2);
             }
 
             if (lifeCounter <= 0)
@@ -105,7 +112,7 @@ public class Child : MonoBehaviour
 
             if (unbreakable == true)
             {
-                Trees.monsterDamage = Trees.monsterDamage / 2;
+                lifeCounter = lifeCounter - (Trees.monsterDamage/2);
             }
 
             if (lifeCounter <= 0)

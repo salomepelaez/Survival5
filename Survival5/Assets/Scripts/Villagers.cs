@@ -151,13 +151,13 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
         public struct VillagersData // Este Struct almacena las variables.
         {
-            public int age;
+            public int health;
 
             // En este pequeño bloque se realiza el cast de estructuras.
             public static explicit operator MonsterData(VillagersData vD)
             {
                 MonsterData zD = new MonsterData();
-                zD.age = vD.age;
+                zD.health = vD.health;
 
                 return zD;
             }

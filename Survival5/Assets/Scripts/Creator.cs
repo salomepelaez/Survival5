@@ -33,18 +33,23 @@ public class Creator : MonoBehaviour
     }
 
     void Awake()
-    {     
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         int rnd = Random.Range(minGen, maxGen); // La generación es producida entre el mínimo de objetos y el máximo.
 
         for (int j = 0; j < rnd; j++) // Este For genera los objetos siguiendo los límites establecidos.
         {
             Vector3 pos = new Vector3();
-            thePeople = GameObject.CreatePrimitive(PrimitiveType.Cube); 
+            thePeople = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
             pos.x = Random.Range(-50, 50);
             pos.z = Random.Range(-50, 50);
             thePeople.transform.position = pos; // A los cubos se les asigna la posición aleatoria antes mencionada.
-                       
+
             thePeople.AddComponent<Rigidbody>(); // Se les agrega Rigidbody.
             thePeople.GetComponent<Rigidbody>().freezeRotation = true;
 
@@ -59,8 +64,8 @@ public class Creator : MonoBehaviour
                 case 2:
                     thePeople.AddComponent<Trees>(); // Se agregan los componentes de su respectiva clase.
                     break;
-            }            
-        }        
+            }
+        }
     }
 
     private void Start()
@@ -76,6 +81,11 @@ public class Creator : MonoBehaviour
     bool bigWinner;
 
     private void Update()
+    {
+        Counter();
+    }
+
+    private void Counter()
     {
         // El siguiente bloque de código genera los contadores de NPC´s en la escena.
         int v = 0;

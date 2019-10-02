@@ -17,6 +17,13 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             
             public void Update()
             {
+                GetTarget();
+
+                NPCMove();
+            }
+
+            public void GetTarget()
+            {
                 // El siguiente bloque de código lee la posición de los aldeanos, cuando la distancia es menor al rango, los zombies pasan a perseguirlos.
                 Villagers closest = null;
                 float closestDistance = 5.0f;
@@ -34,16 +41,12 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                         transform.position += direction * npcSpeed * Time.deltaTime;
                     }
                 }
-
-                NPCMove();
-            }            
+            }
         }
 
-        public class Puppet: Monster
+        sealed class Puppet: Monster
         {
-            public static int damage = 15;
-            public static int force = 5;
-            public static int monsterDamage = damage + force;
+            public static int monsterDamage = 10;
 
             int health = 100;
 
@@ -138,11 +141,9 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
             }
         }
 
-        public class Trees: Monster
+        sealed class Trees: Monster
         {
-            public static int damage = 15;
-            public static int force = 15;
-            public static int monsterDamage = damage + force;
+            public static int monsterDamage = 15;
 
             int health = 100;
 
@@ -157,7 +158,7 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
                 target = FindObjectOfType<Child>().GetComponent<Transform>(); //Se asignó al héroe como target.
 
                 InvokeRepeating("NPCAssignment", 3.0f, 3.0f); // Se llama la repetición para el comportamiento.
-               
+
                 mC = MonsterColor.Verde;
                 if (mC == MonsterColor.Verde)
                 {
@@ -219,8 +220,8 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
         public struct MonsterData // Este Struct almacena todos los datos
         {
-            public MonsterColor mC;
-            public int age;
+            public MonsterColor color;
+            public int health;
         }
 
         public enum MonsterColor // Enum de los colores
