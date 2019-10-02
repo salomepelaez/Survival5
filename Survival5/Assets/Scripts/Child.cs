@@ -8,8 +8,7 @@ using TMPro;
 
 public class Child : MonoBehaviour
 {
-    ChildData cs; // Se creó una variable del Struct.
-    public  static int childAttack = 1;
+    public static int childAttack = 1;
     public GameObject weaponInHand;
 
     // A continuación se crean las variables de Texto para el Canvas.
@@ -17,8 +16,7 @@ public class Child : MonoBehaviour
     public TextMeshProUGUI gameOver;
     public TextMeshProUGUI health;
     public Text objectsMessage;
-    public TextMeshProUGUI isArmed;
-    public TextMeshProUGUI theW;
+    public TextMeshProUGUI isArmed;    
     public static bool unbreakable = false;
     public bool armed = false;
 
@@ -41,7 +39,6 @@ public class Child : MonoBehaviour
         objectsMessage = GameObject.Find("Objects").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
         isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>();
-        theW = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -52,11 +49,6 @@ public class Child : MonoBehaviour
         if (Creator.inGame == false)
         {
             isArmed.text = "";
-        }
-
-        if (Creator.bigWinner == true)
-        {
-            theW.text = Creator.w;
         }
     }
 
@@ -174,6 +166,6 @@ public class Child : MonoBehaviour
 
 public struct ChildData // Este Struct almacena las variables.
 {
-    float sChild;
+    int childAttack;
 }
 

@@ -26,6 +26,7 @@ public class Creator : MonoBehaviour
     public string message;
     public static string goMessage;
     public static string w;
+    public TextMeshProUGUI theW;
 
     // A continuación en el constructor se asignó el número aleatorio para el mínimo de la creación de objetos.
     public Creator()
@@ -40,7 +41,7 @@ public class Creator : MonoBehaviour
 
     private void Initialize()
     {
-
+        theW = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>();
         int rnd = Random.Range(minGen, maxGen); // La generación es producida entre el mínimo de objetos y el máximo.
 
         for (int j = 0; j < rnd; j++) // Este For genera los objetos siguiendo los límites establecidos.
@@ -73,6 +74,7 @@ public class Creator : MonoBehaviour
     private void Start()
     {
        goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.  
+       
     }
 
     public static bool bigWinner;
@@ -80,6 +82,11 @@ public class Creator : MonoBehaviour
     private void Update()
     {
         Counter();
+
+        if(bigWinner == true)
+        {
+            theW.text = Winner();
+        }
     }
 
     private void Counter()
@@ -125,8 +132,8 @@ public class Creator : MonoBehaviour
         if (a ==0  && p == 0)
         {
             inGame = false;
-            w = Winner();
-            Debug.Log("cero xd");
+            bigWinner = true;
+            Debug.Log("ye baby");
         }
     }
 
