@@ -1039,7 +1039,6 @@ MonoBehaviour:
   treesNum: {fileID: 419166083}
   puppetsNum: {fileID: 219105278}
   villagersNum: {fileID: 1732542509}
-  w: {fileID: 1244020332}
   message: 
 --- !u!4 &544115401
 Transform:
@@ -1195,6 +1194,7 @@ MonoBehaviour:
   health: {fileID: 0}
   objectsMessage: {fileID: 0}
   isArmed: {fileID: 0}
+  theW: {fileID: 0}
   armed: 0
 --- !u!1 &766967907
 GameObject:
