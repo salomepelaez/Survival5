@@ -18,8 +18,6 @@ namespace NPC // Este Namespace abriga los otros dos correspondientes: Ally and 
 
             void Start()
             {
-                target = FindObjectOfType<Monster>().GetComponent<Transform>(); // Para el Ciudadano el objetivo es el Zombie.
-
                 transform.tag = "Villager"; // El cambiar el nombre de la etiqueta, permite encontrar de manera sencilla el objeto con el que se colisiona.
                 transform.name = "Villager"; // Se cambió el nombre del objeto para poder identificarlo fácilmente.
 

@@ -16,7 +16,7 @@ public class Creator : MonoBehaviour
 
     System.Random random = new System.Random();
 
-    public const int maxGen = 25; // Se creó una variable constante para el número máximo de generación.
+    public const int maxGen = 5; // Se creó una variable constante para el número máximo de generación.
     public readonly int minGen; // Se declaró un readonly para el mínimo posible de generación de objetos. 
 
     // Las siguientes variables del tipo texto son las que abrigan los contadores del Canvas.
@@ -25,11 +25,12 @@ public class Creator : MonoBehaviour
     public TextMeshProUGUI villagersNum;
     public string message;
     public static string goMessage;
+    public static string w;
 
     // A continuación en el constructor se asignó el número aleatorio para el mínimo de la creación de objetos.
     public Creator()
     {
-        minGen = random.Next(5, 15);
+        minGen = random.Next(1, 3);
     }
 
     void Awake()
@@ -39,6 +40,7 @@ public class Creator : MonoBehaviour
 
     private void Initialize()
     {
+
         int rnd = Random.Range(minGen, maxGen); // La generación es producida entre el mínimo de objetos y el máximo.
 
         for (int j = 0; j < rnd; j++) // Este For genera los objetos siguiendo los límites establecidos.
@@ -70,15 +72,10 @@ public class Creator : MonoBehaviour
 
     private void Start()
     {
-       goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.
-       
-        if(bigWinner == true)
-        {
-            goMessage = Winner();
-        }
+       goMessage = GameOver(); // Se asignó el mensaje para el momento en el que el jugador pierda.  
     }
 
-    bool bigWinner;
+    public static bool bigWinner;
 
     private void Update()
     {
@@ -95,23 +92,23 @@ public class Creator : MonoBehaviour
         foreach (Trees tree in Transform.FindObjectsOfType<Trees>())
         {
             a = a + 1;
-            treesNum.text = "Trees: " + a;
+            treesNum.text = "Trees: " + a;            
+        }
 
-            if (inGame == false)
-            {
-                treesNum.text = "";
-            }
+        if (a == 0)
+        {
+            treesNum.text = "";
         }
 
         foreach (Puppet puppet in Transform.FindObjectsOfType<Puppet>())
         {
             p = p + 1;
             puppetsNum.text = "Puppets: " + p;
+        }
 
-            if (inGame == false)
-            {
-                puppetsNum.text = "";
-            }
+        if (p == 0)
+        {
+            puppetsNum.text = "";
         }
 
         foreach (Villagers villagers in Transform.FindObjectsOfType<Villagers>())
@@ -125,10 +122,11 @@ public class Creator : MonoBehaviour
             }
         }
 
-        if (a == 0 && p == 0)
+        if (a ==0  && p == 0)
         {
             inGame = false;
-            bigWinner = true;
+            w = Winner();
+            Debug.Log("cero xd");
         }
     }
 
@@ -136,7 +134,6 @@ public class Creator : MonoBehaviour
     public string GameOver()
     {
         message = "Game Over";
-
         return message;
     }
 

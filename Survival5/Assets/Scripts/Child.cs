@@ -18,6 +18,7 @@ public class Child : MonoBehaviour
     public TextMeshProUGUI health;
     public Text objectsMessage;
     public TextMeshProUGUI isArmed;
+    public TextMeshProUGUI theW;
     public static bool unbreakable = false;
     public bool armed = false;
 
@@ -40,6 +41,7 @@ public class Child : MonoBehaviour
         objectsMessage = GameObject.Find("Objects").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
         isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>();
+        theW = GameObject.Find("Winner").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -50,6 +52,11 @@ public class Child : MonoBehaviour
         if (Creator.inGame == false)
         {
             isArmed.text = "";
+        }
+
+        if (Creator.bigWinner == true)
+        {
+            theW.text = Creator.w;
         }
     }
 
@@ -163,11 +170,10 @@ public class Child : MonoBehaviour
             objectsMessage.text = "";
         }
     }
-    static float speed; // La velocidad se declaró como estática.
 }
 
 public struct ChildData // Este Struct almacena las variables.
 {
-    public static float sChild;
+    float sChild;
 }
 
