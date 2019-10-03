@@ -199,6 +199,16 @@ public class Child : MonoBehaviour
         {
             objectsMessage.text = "";
         }
+
+        if (other.transform.tag == "Blanket")
+        {
+            objectsMessage.text = "";
+        }
+
+        if (other.transform.tag == "Teddy")
+        {
+            objectsMessage.text = "";
+        }
     }
 }
 
