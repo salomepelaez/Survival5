@@ -113,7 +113,7 @@ public class Child : MonoBehaviour
             
             if(unbreakable == true)
             {
-                lifeCounter = 5;
+                lifeCounter = lifeCounter - 5;
             }
 
             if (lifeCounter <= 0)
