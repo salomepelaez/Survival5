@@ -16,10 +16,12 @@ public class Child : MonoBehaviour
     public TextMeshProUGUI gameOver;
     public TextMeshProUGUI health;
     public Text objectsMessage;
-    public TextMeshProUGUI isArmed;    
+    public TextMeshProUGUI isArmed;
+    public Text reg;
 
     // Los siguientes booleanos son de protección y defensa, correspondientemente.
     public static bool unbreakable = false;
+    bool protectedChild = false;
     public bool armed = false;
 
     void Awake()
@@ -38,6 +40,7 @@ public class Child : MonoBehaviour
         objectsMessage = GameObject.Find("Objects").GetComponent<Text>();
         health = GameObject.Find("Health").GetComponent<TextMeshProUGUI>();
         isArmed = GameObject.Find("Armed").GetComponent<TextMeshProUGUI>();
+        reg = GameObject.Find("Life").GetComponent<Text>();
     }
 
     private void Start()
@@ -48,12 +51,14 @@ public class Child : MonoBehaviour
         {
             isArmed.text = "Desarmado";
         }
+
+        InvokeRepeating("IncreaseLife", 0.0f, 0.5f);
     }
 
     public void Update()
     {     
         health.text = "Salud: " + lifeCounter; // El contador de salud es el encargado de mostrar cuánta vida le queda al héroe.
-        
+             
         if(Creator.inGame == false)
         {
             health.text = "";
@@ -62,6 +67,20 @@ public class Child : MonoBehaviour
         if (armed == true) // Cuando el héroe pasa a estar armado, el daño de ataque aumenta.
         {
             childAttack = 20;
+        }
+    }
+
+    void IncreaseLife()
+    {
+        if (protectedChild == true)
+        {
+            lifeCounter++;
+            reg.text = "♥ Regeneración ♥";
+
+            if (lifeCounter > 100)
+            {
+                lifeCounter = 100;
+            }
         }
     }
 
@@ -94,7 +113,7 @@ public class Child : MonoBehaviour
             
             if(unbreakable == true)
             {
-                lifeCounter = lifeCounter - (Puppet.monsterDamage/2);
+                lifeCounter = 5;
             }
 
             if (lifeCounter <= 0)
@@ -110,7 +129,7 @@ public class Child : MonoBehaviour
 
             if (unbreakable == true)
             {
-                lifeCounter = lifeCounter - (Trees.monsterDamage/2);
+                lifeCounter = lifeCounter - 5;
             }
 
             if (lifeCounter <= 0)
@@ -166,7 +185,7 @@ public class Child : MonoBehaviour
                 other.transform.gameObject.SetActive(false);
                 objectsMessage.text = "";
 
-                unbreakable = true;
+                protectedChild = true;
                 Debug.Log("mamadísimo");
             }
         }
