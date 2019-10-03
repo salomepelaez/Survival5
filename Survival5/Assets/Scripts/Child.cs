@@ -70,9 +70,10 @@ public class Child : MonoBehaviour
         }
     }
 
+    // El siguiente void se encarga de regenerar la vida, es llamada en un InvokeRepeating
     void IncreaseLife()
     {
-        if (protectedChild == true)
+        if (protectedChild == true) // Se activa cuando el oso de peluche es recogido
         {
             lifeCounter++;
             reg.text = "♥ Regeneración ♥";
@@ -143,6 +144,7 @@ public class Child : MonoBehaviour
     // El siguiente OnTriggerStay permite recoger objetos en la escena.
     // El arma brinda defensa.
     // La manta brinda protección.
+    // El osito regenera vida.
 
     private void OnTriggerStay(Collider other)
     {
@@ -186,7 +188,7 @@ public class Child : MonoBehaviour
                 objectsMessage.text = "";
 
                 protectedChild = true;
-                Debug.Log("mamadísimo");
+                Debug.Log("recontramamadísimo");
             }
         }
     }
