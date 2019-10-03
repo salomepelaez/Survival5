@@ -156,6 +156,20 @@ public class Child : MonoBehaviour
                 Debug.Log("mamadísimo");
             }
         }
+
+        if (other.transform.tag == "Teddy")
+        {
+            objectsMessage.text = "Presiona E para recoger el osito";
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                other.transform.gameObject.SetActive(false);
+                objectsMessage.text = "";
+
+                unbreakable = true;
+                Debug.Log("mamadísimo");
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)

@@ -1503,6 +1503,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teddy
       objectReference: {fileID: 0}
+    - target: {fileID: 4345589899734045380, guid: 0f66b3b84c850964390be3273b90c32b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Teddy
+      objectReference: {fileID: 0}
     - target: {fileID: 2463261206168683327, guid: 0f66b3b84c850964390be3273b90c32b,
         type: 3}
       propertyPath: m_LocalPosition.x
