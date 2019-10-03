@@ -11,6 +11,7 @@ TagManager:
   - Child
   - Weapon
   - Blanket
+  - Teddy
   layers:
   - Default
   - TransparentFX
